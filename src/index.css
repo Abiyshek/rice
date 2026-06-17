@@ -38,7 +38,34 @@ h1, h2, h3, h4, h5, h6 {
 
 section { min-height: 100vh; }
 
+/* Desktop only header items */
+.desktop-nav-links {
+  display: flex !important;
+}
+.desktop-nav-cta {
+  display: block !important;
+}
+/* Mobile menu toggle */
+.mobile-menu-toggle {
+  display: none !important;
+}
+
 @media (max-width: 900px) {
+  .desktop-nav-links {
+    display: none !important;
+  }
+  .desktop-nav-cta {
+    display: none !important;
+  }
+  .mobile-menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #FFF8E7;
+    cursor: pointer;
+  }
   .nav-links-list {
     overflow-x: auto !important;
     white-space: nowrap !important;

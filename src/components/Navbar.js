@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
 import logoImg from '../assets/logo/SKRM_logo.png';
 
 const styles = {
@@ -25,6 +26,7 @@ const styles = {
     border: '1px solid rgba(212, 160, 23, 0.15)',
     boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    position: 'relative',
   },
   navScrolled: {
     background: 'rgba(26, 26, 14, 0.92)',
@@ -51,6 +53,7 @@ const styles = {
 
 export default function Navbar({ currentPage, navigateTo }) {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -74,12 +77,14 @@ export default function Navbar({ currentPage, navigateTo }) {
       padding: scrolled ? '0.75rem 1rem' : '1.5rem 1rem'
     }}>
       <nav style={{ ...styles.nav, ...(scrolled ? styles.navScrolled : {}) }}>
-        <div onClick={() => handleNavClick('home')} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '12px' }}>
+        <div onClick={() => { handleNavClick('home'); setMobileMenuOpen(false); }} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '12px' }}>
           <img src={logoImg} alt="Sri Krishna Modern Rice Mill" style={{ height: '44px', width: '44px', borderRadius: '50%', objectFit: 'cover' }} />
         </div>
-        <ul className="nav-links-list" style={styles.links}>
+
+        {/* Desktop Links */}
+        <ul className="desktop-nav-links" style={styles.links}>
           {['home', 'about', 'history', 'products', 'quality', 'testimonials', 'contact'].map(item => {
-            const isActive = (item === 'about' && currentPage === 'about') || (item === 'home' && currentPage === 'home');
+            const isActive = (item === 'about' && currentPage === 'about') || (item === 'home' && currentPage === 'home' && !window.location.hash);
             return (
               <li key={item}>
                 <span style={{
@@ -95,13 +100,80 @@ export default function Navbar({ currentPage, navigateTo }) {
             );
           })}
         </ul>
-        <button style={styles.cta}
-          onMouseEnter={e => { e.target.style.transform = 'scale(1.05)'; e.target.style.boxShadow = '0 8px 25px rgba(212,160,23,0.5)'; }}
-          onMouseLeave={e => { e.target.style.transform = 'scale(1)'; e.target.style.boxShadow = 'none'; }}
-          onClick={() => handleNavClick('contact')}
+
+        {/* Desktop CTA */}
+        <div className="desktop-nav-cta">
+          <button style={styles.cta}
+            onMouseEnter={e => { e.target.style.transform = 'scale(1.05)'; e.target.style.boxShadow = '0 8px 25px rgba(212,160,23,0.5)'; }}
+            onMouseLeave={e => { e.target.style.transform = 'scale(1)'; e.target.style.boxShadow = 'none'; }}
+            onClick={() => handleNavClick('contact')}
+          >
+            Get a Quote
+          </button>
+        </div>
+
+        {/* Mobile Menu Icon Button */}
+        <button 
+          className="mobile-menu-toggle" 
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle Navigation Menu"
         >
-          Get a Quote
+          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
+
+        {/* Mobile Menu Dropdown Drawer */}
+        {mobileMenuOpen && (
+          <div style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            right: 0,
+            marginTop: '0.75rem',
+            background: 'rgba(26, 26, 14, 0.95)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '24px',
+            border: '1px solid rgba(212, 160, 23, 0.35)',
+            boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
+            padding: '1.5rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.25rem',
+            zIndex: 999,
+          }}>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem', padding: 0 }}>
+              {['home', 'about', 'history', 'products', 'quality', 'testimonials', 'contact'].map(item => {
+                const isActive = (item === 'about' && currentPage === 'about') || (item === 'home' && currentPage === 'home');
+                return (
+                  <li key={item} style={{ textAlign: 'center' }}>
+                    <span style={{
+                      ...styles.link,
+                      fontSize: '1rem',
+                      display: 'block',
+                      padding: '0.55rem',
+                      color: isActive ? '#D4A017' : 'rgba(255,248,231,0.8)'
+                    }} onClick={() => {
+                      handleNavClick(item);
+                      setMobileMenuOpen(false);
+                    }}>
+                      {item.charAt(0).toUpperCase() + item.slice(1)}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+            <button style={{
+              ...styles.cta,
+              width: '100%',
+              padding: '0.75rem',
+              fontSize: '0.9rem',
+            }} onClick={() => {
+              handleNavClick('contact');
+              setMobileMenuOpen(false);
+            }}>
+              Get a Quote
+            </button>
+          </div>
+        )}
       </nav>
     </div>
   );
