@@ -72,13 +72,13 @@ export default function Contact() {
             { 
               icon: Phone, 
               label: 'Phone', 
-              value: '+91 96772 77944',
+              value: '+91 XXXXX XXXXX',
               onClick: () => {
                 const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 0 && window.innerWidth <= 768);
                 if (isMobile) {
-                  window.location.href = 'tel:+919677277944';
+                  window.location.href = 'tel:+919999999999';
                 } else {
-                  window.open('https://wa.me/919677277944', '_blank');
+                  window.open('https://wa.me/919999999999', '_blank');
                 }
               },
             },
