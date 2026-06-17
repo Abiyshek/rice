@@ -293,7 +293,7 @@ export default function Testimonials() {
         ) : (
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
             gap: '2rem',
             marginBottom: '4rem'
           }}>
@@ -380,7 +380,7 @@ export default function Testimonials() {
         {/* CTA to write/view all reviews */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap', marginTop: '2rem' }}>
           <button
-            onClick={() => window.open('https://maps.google.com/?q=Sri+Krishna+Modern+Rice+Mill+Madagadipet+Puducherry', '_blank')}
+            onClick={() => window.open('https://maps.google.com/?q=Sri+Krishna+Modern+Rice+Mill+Andiyarpalayam+Puducherry', '_blank')}
             onMouseEnter={() => setIsHoveredBtn(true)}
             onMouseLeave={() => setIsHoveredBtn(false)}
             style={{

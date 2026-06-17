@@ -40,6 +40,23 @@ export default function PaddyHistory() {
   const videoRef = useRef();
   const [activeStage, setActiveStage] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
+  const [cardWidth, setCardWidth] = useState(280);
+  const [gap, setGap] = useState(24);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setCardWidth(Math.min(window.innerWidth * 0.8, 280));
+        setGap(16);
+      } else {
+        setCardWidth(300);
+        setGap(24);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -58,8 +75,8 @@ export default function PaddyHistory() {
       const progress = Math.max(0, Math.min(1, scrolled / totalHeight));
       
       // Set video current time based on scroll progress
-      if (video && videoDuration) {
-        video.currentTime = progress * videoDuration;
+      if (video && video.duration) {
+        video.currentTime = progress * video.duration;
       }
 
       // Update active stage
@@ -70,78 +87,75 @@ export default function PaddyHistory() {
     video.addEventListener('loadedmetadata', handleLoadedMetadata);
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    const onResize = () => {
-      // Video will scale responsively via CSS
-    };
-    window.addEventListener('resize', onResize);
-
     return () => {
       video.removeEventListener('loadedmetadata', handleLoadedMetadata);
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onResize);
     };
   }, [videoDuration]);
+
+  const scrollToStage = (idx) => {
+    const section = sectionRef.current;
+    if (section) {
+      const totalHeight = section.offsetHeight - window.innerHeight;
+      const targetScroll = (idx / (stages.length - 1)) * totalHeight;
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: sectionTop + targetScroll,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
     <section id="history" ref={sectionRef} style={{ height: `${stages.length * 120}vh`, position: 'relative' }}>
       {/* Sticky wrapper */}
       <div style={{
         position: 'sticky', top: 0, height: '100vh',
-        display: 'grid', gridTemplateColumns: '1fr 450px 1fr', gap: 0,
-        alignItems: 'center',
+        display: 'flex', flexDirection: 'column',
+        justifyContent: 'space-evenly', alignItems: 'center',
         background: 'transparent',
         overflow: 'hidden',
+        padding: '1rem 0',
       }}>
-        {/* Background paddy texture - removed, video now used as background */}
-
-        {/* Section label */}
+        {/* Section title */}
         <div style={{
-          position: 'absolute', top: '1rem', left: '50%', transform: 'translateX(-50%)',
-          textAlign: 'center', zIndex: 10, marginLeft: '3rem',
+          textAlign: 'center', zIndex: 10,
+          width: '100%', padding: '0 1rem'
         }}>
           <div style={{ fontSize: '0.85rem', letterSpacing: '0.4em', color: '#000000', textTransform: 'uppercase', marginBottom: 4, fontWeight: 700 }}>
             Our Journey
           </div>
           <h2 style={{
             fontFamily: "'Cinzel', serif",
-            fontSize: '2.5rem', color: '#FFF8E7',
+            fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: '#FFF8E7',
             margin: 0,
           }}>
             From Seed to Legacy
           </h2>
         </div>
 
-        {/* Left timeline cards */}
-        <div style={{ padding: '0 0.5rem 0 1rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'flex-end' }}>
-          {stages.filter(s => s.side === 'left').map((s, i) => {
-            const stageIdx = stages.indexOf(s);
-            const isActive = activeStage >= stageIdx;
-            return (
-              <TimelineCard key={s.year} stage={s} isActive={isActive} align="right" />
-            );
-          })}
-        </div>
-
-        {/* Center Video */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem', position: 'relative', height: '100%' }}>
+        {/* Center Video Section */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', width: '100%', maxWidth: '500px', padding: '0 1rem' }}>
           <video
             ref={videoRef}
             src={paddyGrowth}
+            muted
+            playsInline
             style={{
-              width: 'auto',
-              height: '40vh',
+              width: '100%',
+              height: 'clamp(180px, 28vh, 260px)',
               display: 'block',
               objectFit: 'contain',
               backgroundColor: 'rgba(0,0,0,0.3)',
-              borderRadius: 12,
-              maxWidth: '100%',
+              borderRadius: 16,
+              border: '2px solid rgba(212, 160, 23, 0.3)',
             }}
           />
           {/* Stage pill */}
           <div style={{
             background: 'black',
             border: '2px solid rgba(90, 150, 50, 0.9)',
-            borderRadius: 30, padding: '0.5rem 1.5rem',
+            borderRadius: 30, padding: '0.4rem 1.2rem',
             fontSize: '0.8rem', letterSpacing: '0.1em',
             color: '#ffffff', fontWeight: 700,
             backdropFilter: 'blur(10px)',
@@ -162,52 +176,57 @@ export default function PaddyHistory() {
           </div>
         </div>
 
-        {/* Right timeline cards */}
-        <div style={{ padding: '0 1rem 0 0.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'flex-start' }}>
-          {stages.filter(s => s.side === 'right').map((s) => {
-            const stageIdx = stages.indexOf(s);
-            const isActive = activeStage >= stageIdx;
-            return (
-              <TimelineCard key={s.year} stage={s} isActive={isActive} align="left" />
-            );
-          })}
+        {/* Carousel stages */}
+        <div style={{
+          width: '100%',
+          overflow: 'hidden',
+          position: 'relative',
+          padding: '0.5rem 0',
+        }}>
+          <div style={{
+            display: 'flex',
+            gap: `${gap}px`,
+            transition: 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)',
+            transform: `translateX(calc(50vw - ${(activeStage * (cardWidth + gap)) + (cardWidth / 2)}px))`,
+            width: 'max-content',
+          }}>
+            {stages.map((stage, idx) => {
+              const isActive = idx === activeStage;
+              return (
+                <div
+                  key={stage.year}
+                  onClick={() => scrollToStage(idx)}
+                  style={{
+                    width: cardWidth,
+                    flexShrink: 0,
+                    background: 'rgba(106, 170, 93, 1)',
+                    border: `2px solid ${isActive ? stage.color : 'rgba(90, 150, 50, 0.9)'}`,
+                    borderRadius: 16,
+                    padding: '1.2rem 1.4rem',
+                    textAlign: 'center',
+                    transition: 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)',
+                    transform: isActive ? 'scale(1.05)' : 'scale(0.9)',
+                    opacity: isActive ? 1 : 0.4,
+                    boxShadow: isActive ? `0 8px 25px ${stage.color}35` : 'none',
+                    backdropFilter: isActive ? 'blur(8px)' : 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div style={{ fontSize: '0.75rem', letterSpacing: '0.3em', color: stage.color, marginBottom: 4, fontWeight: 700 }}>
+                    {stage.year}
+                  </div>
+                  <h3 style={{ fontFamily: "'Cinzel', serif", fontSize: '1.15rem', color: '#1A1A0E', marginBottom: 6, fontWeight: 700 }}>
+                    {stage.title}
+                  </h3>
+                  <p style={{ fontSize: '0.8rem', color: '#2D2D1F', lineHeight: 1.5, fontWeight: 700, margin: 0 }}>
+                    {stage.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function TimelineCard({ stage, isActive, align }) {
-  return (
-    <div style={{
-      maxWidth: 260,
-      background: 'rgba(106, 170, 93, 1)',
-      border: `2px solid ${isActive ? stage.color : 'rgba(90, 150, 50, 0.9)'}`,
-      borderRadius: 16, padding: '1.2rem 1.4rem',
-      textAlign: align,
-      transition: 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)',
-      transform: isActive ? 'scale(1)' : 'scale(0.94)',
-      opacity: isActive ? 1 : 0.5,
-      boxShadow: isActive ? `0 8px 20px ${stage.color}20` : 'none',
-      backdropFilter: isActive ? 'blur(8px)' : 'none',
-    }}>
-      <div style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: stage.color, marginBottom: 4, fontWeight: 700 }}>
-        {stage.year}
-      </div>
-      <h3 style={{ fontFamily: "'Cinzel', serif", fontSize: '1.2rem', color: '#1A1A0E', marginBottom: 8, fontWeight: 700 }}>
-        {stage.title}
-      </h3>
-      <p style={{ fontSize: '0.82rem', color: '#2D2D1F', lineHeight: 1.6, fontWeight: 700 }}>
-        {stage.desc}
-      </p>
-      <div style={{
-        marginTop: 10, width: 30, height: 2,
-        background: `linear-gradient(90deg, ${stage.color}, transparent)`,
-        marginLeft: align === 'right' ? 'auto' : 0,
-        marginRight: align === 'right' ? 0 : 'auto',
-        transition: 'width 0.5s',
-        width: isActive ? 30 : 0,
-      }} />
-    </div>
   );
 }

@@ -222,7 +222,7 @@ export default function Customers() {
         </div>
 
         {/* Domestic vs Export */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: 'transparent', borderRadius: 24, overflow: 'hidden', padding: '1px', marginTop: '4rem' }}>
+        <div className="responsive-grid-2" style={{ marginTop: '4rem' }}>
           {[
             { icon: MapPin, title: 'Domestic Supply', desc: 'Serving retail chains, wholesalers, hotels, and households across Tamil Nadu and Puducherry.', color: '#D4A017' },
             { icon: Plane, title: 'International Export', desc: 'Meeting strict global food safety standards. VIP Krishna brand recognized across international markets.', color: '#2A9D8F' },
@@ -231,7 +231,7 @@ export default function Customers() {
               padding: '2.5rem',
               background: 'rgba(144, 200, 100, 0.75)',
               border: '2px solid rgba(90, 150, 50, 0.9)',
-              borderRadius: 0,
+              borderRadius: 24,
               transition: 'all 0.3s',
             }}
               onMouseEnter={e => e.currentTarget.style.background = 'rgba(144, 200, 100, 0.9)'}

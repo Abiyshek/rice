@@ -10,7 +10,7 @@ export default function Footer() {
       padding: '4rem 3rem 2rem',
     }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '4rem', marginBottom: '3rem' }}>
+        <div className="responsive-footer-grid">
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: '1.5rem' }}>
               <img src={logoImg} alt="Sri Krishna Modern Rice Mill" style={{ height: '44px', width: '44px', borderRadius: '50%', objectFit: 'cover' }} />
@@ -61,7 +61,7 @@ export default function Footer() {
             © 2024 Sri Krishna Modern Rice Mill. All rights reserved.
           </div>
           <div style={{ color: 'rgba(255,248,231,0.3)', fontSize: '0.8rem' }}>
-            Madagadipet, Puducherry • Since 1960
+            Andiyarpalayam, Puducherry • Since 1960
           </div>
         </div>
       </div>

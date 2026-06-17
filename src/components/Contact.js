@@ -66,19 +66,19 @@ export default function Contact() {
             { 
               icon: MapPin, 
               label: 'Address', 
-              value: 'Madagadipet, Puducherry',
-              onClick: () => window.open('https://maps.google.com/?q=Sri+Krishna+Modern+Rice+Mill+Madagadipet+Puducherry', '_blank'),
+              value: 'R.S.No:138/1&2 Mankuppam main road, Andiyarpalayam, P.O, Gangarampalaiyam, Puducherry, 605108',
+              onClick: () => window.open('https://maps.google.com/?q=Sri+Krishna+Modern+Rice+Mill+Andiyarpalayam+Puducherry', '_blank'),
             },
             { 
               icon: Phone, 
               label: 'Phone', 
-              value: '+91 XXXX XXXXXX',
+              value: '+91 96772 77944',
               onClick: () => {
                 const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 0 && window.innerWidth <= 768);
                 if (isMobile) {
-                  window.location.href = 'tel:+919876543210';
+                  window.location.href = 'tel:+919677277944';
                 } else {
-                  window.open('https://wa.me/919876543210', '_blank');
+                  window.open('https://wa.me/919677277944', '_blank');
                 }
               },
             },
@@ -110,7 +110,7 @@ export default function Contact() {
         </div>
 
         {/* Social channels */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+        <div className="responsive-grid-2">
           {socials.map((s, i) => (
             <div key={i}
               onClick={s.onClick}
