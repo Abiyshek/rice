@@ -65,6 +65,23 @@ export default function PaddyHistory() {
     const video = videoRef.current;
     if (!video) return;
 
+    let targetTime = 0;
+    let currentTime = video.currentTime || 0;
+    let animationFrameId;
+
+    const updateVideoTime = () => {
+      if (video && video.duration) {
+        const diff = targetTime - currentTime;
+        if (Math.abs(diff) > 0.005) {
+          currentTime += diff * 0.2; // Smooth interpolation factor (0.2 is very responsive)
+          // Clamp the value to duration
+          currentTime = Math.max(0, Math.min(video.duration, currentTime));
+          video.currentTime = currentTime;
+        }
+      }
+      animationFrameId = requestAnimationFrame(updateVideoTime);
+    };
+
     const handleLoadedMetadata = () => {
       setVideoDuration(video.duration);
     };
@@ -77,9 +94,8 @@ export default function PaddyHistory() {
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / totalHeight));
       
-      // Set video current time based on scroll progress
       if (video && video.duration) {
-        video.currentTime = progress * video.duration;
+        targetTime = progress * video.duration;
       }
 
       // Update active stage
@@ -89,10 +105,12 @@ export default function PaddyHistory() {
 
     video.addEventListener('loadedmetadata', handleLoadedMetadata);
     window.addEventListener('scroll', onScroll, { passive: true });
+    animationFrameId = requestAnimationFrame(updateVideoTime);
 
     return () => {
       video.removeEventListener('loadedmetadata', handleLoadedMetadata);
       window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(animationFrameId);
     };
   }, [videoDuration]);
 
