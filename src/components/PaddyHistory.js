@@ -66,17 +66,17 @@ export default function PaddyHistory() {
     if (!video) return;
 
     let targetTime = 0;
-    let currentTime = video.currentTime || 0;
     let animationFrameId;
 
     const updateVideoTime = () => {
       if (video && video.duration) {
-        const diff = targetTime - currentTime;
-        if (Math.abs(diff) > 0.005) {
-          currentTime += diff * 0.2; // Smooth interpolation factor (0.2 is very responsive)
-          // Clamp the value to duration
-          currentTime = Math.max(0, Math.min(video.duration, currentTime));
-          video.currentTime = currentTime;
+        const diff = targetTime - video.currentTime;
+        if (Math.abs(diff) > 0.01) {
+          if (!video.seeking) {
+            let nextTime = video.currentTime + diff * 0.08;
+            nextTime = Math.max(0, Math.min(video.duration, nextTime));
+            video.currentTime = nextTime;
+          }
         }
       }
       animationFrameId = requestAnimationFrame(updateVideoTime);
