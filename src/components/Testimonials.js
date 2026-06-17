@@ -5,7 +5,7 @@ import { Star, MessageSquare, ExternalLink, Calendar, Award } from 'lucide-react
 // CONFIGURATION: Set your Elfsight Widget ID here
 // If left blank, the website will show the custom local reviews.
 // ==========================================
-const ELFSIGHT_WIDGET_ID = ""; // Paste your Elfsight widget ID here (e.g. "f56b3e7a-12e0-4a8b...")
+const ELFSIGHT_WIDGET_ID = "3bd942ee-6fa4-4aa7-b1ee-ec1e4e910f64"; // Paste your Elfsight widget ID here (e.g. "f56b3e7a-12e0-4a8b...")
 
 const mockReviews = [
   {
@@ -61,7 +61,7 @@ export default function Testimonials() {
     if (!ELFSIGHT_WIDGET_ID) return;
 
     const script = document.createElement('script');
-    script.src = "https://static.elfsight.com/platform/platform.js";
+    script.src = "https://elfsightcdn.com/platform.js";
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);
