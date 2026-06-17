@@ -24,6 +24,16 @@ const clients = [
 
 export default function Customers() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,6 +49,15 @@ export default function Customers() {
   const prevSlide = () => {
     setActiveIndex((prev) => (prev - 1 + clients.length) % clients.length);
   };
+
+  const wrapperPadding = isMobile ? '0 0.25rem' : '0 3.5rem';
+  const arrowSize = isMobile ? 36 : 44;
+  const arrowLeft = isMobile ? '8px' : '0';
+  const arrowRight = isMobile ? '8px' : '0';
+  const cardPadding = isMobile ? '2rem 1.25rem' : '3rem 2.5rem';
+  const logoSize = isMobile ? '90px' : '120px';
+  const titleSize = isMobile ? '1.35rem' : '1.8rem';
+  const descSize = isMobile ? '0.9rem' : '1.1rem';
 
   return (
     <section style={{
@@ -70,7 +89,7 @@ export default function Customers() {
         </div>
 
         {/* Carousel Container */}
-        <div style={{ position: 'relative', maxWidth: '800px', margin: '0 auto', padding: '0 3.5rem' }}>
+        <div style={{ position: 'relative', maxWidth: '800px', margin: '0 auto', padding: wrapperPadding }}>
           
           {/* Navigation Buttons */}
           <button 
@@ -78,14 +97,14 @@ export default function Customers() {
             aria-label="Previous Slide"
             style={{
               position: 'absolute',
-              left: 0,
+              left: arrowLeft,
               top: '50%',
               transform: 'translateY(-50%)',
               background: 'rgba(90, 150, 50, 0.9)',
               border: '2px solid rgba(255, 248, 231, 0.8)',
               borderRadius: '50%',
-              width: '44px',
-              height: '44px',
+              width: `${arrowSize}px`,
+              height: `${arrowSize}px`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -104,7 +123,7 @@ export default function Customers() {
               e.currentTarget.style.background = 'rgba(90, 150, 50, 0.9)';
             }}
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={isMobile ? 18 : 24} />
           </button>
 
           <div style={{ overflow: 'hidden', borderRadius: '24px', boxShadow: '0 12px 30px rgba(0,0,0,0.15)' }}>
@@ -119,7 +138,7 @@ export default function Customers() {
                   background: 'rgba(144, 200, 100, 0.85)',
                   border: '2px solid rgba(90, 150, 50, 0.9)',
                   borderRadius: '24px',
-                  padding: '3rem 2.5rem',
+                  padding: cardPadding,
                   boxSizing: 'border-box',
                   display: 'flex',
                   flexDirection: 'column',
@@ -131,14 +150,15 @@ export default function Customers() {
                   <div style={{
                     background: 'rgba(255, 255, 255, 0.9)',
                     borderRadius: '50%',
-                    padding: '1.5rem',
-                    width: '120px',
-                    height: '120px',
+                    padding: isMobile ? '1rem' : '1.5rem',
+                    width: logoSize,
+                    height: logoSize,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     boxShadow: '0 8px 20px rgba(0,0,0,0.1)',
                     border: `3px solid ${c.color || '#D4A017'}`,
+                    flexShrink: 0,
                   }}>
                     <img 
                       src={c.image} 
@@ -153,10 +173,10 @@ export default function Customers() {
                   
                   {/* Info */}
                   <div>
-                    <h3 style={{ fontFamily: "'Cinzel', serif", fontSize: '1.8rem', color: '#1A1A0E', marginBottom: '0.75rem', fontWeight: 700 }}>
+                    <h3 style={{ fontFamily: "'Cinzel', serif", fontSize: titleSize, color: '#1A1A0E', marginBottom: '0.5rem', fontWeight: 700 }}>
                       {c.name}
                     </h3>
-                    <p style={{ fontSize: '1.1rem', color: '#2D2D1F', lineHeight: 1.7, fontWeight: 700, maxWidth: '550px', margin: '0 auto' }}>
+                    <p style={{ fontSize: descSize, color: '#2D2D1F', lineHeight: 1.6, fontWeight: 700, maxWidth: '550px', margin: '0 auto' }}>
                       {c.desc}
                     </p>
                   </div>
@@ -170,14 +190,14 @@ export default function Customers() {
             aria-label="Next Slide"
             style={{
               position: 'absolute',
-              right: 0,
+              right: arrowRight,
               top: '50%',
               transform: 'translateY(-50%)',
               background: 'rgba(90, 150, 50, 0.9)',
               border: '2px solid rgba(255, 248, 231, 0.8)',
               borderRadius: '50%',
-              width: '44px',
-              height: '44px',
+              width: `${arrowSize}px`,
+              height: `${arrowSize}px`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -196,7 +216,7 @@ export default function Customers() {
               e.currentTarget.style.background = 'rgba(90, 150, 50, 0.9)';
             }}
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={isMobile ? 18 : 24} />
           </button>
         </div>
 
