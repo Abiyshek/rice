@@ -77,6 +77,7 @@ export default function Navbar({ currentPage, navigateTo }) {
       padding: scrolled ? '0.75rem 1rem' : '1.5rem 1rem'
     }}>
       <nav style={{ ...styles.nav, ...(scrolled ? styles.navScrolled : {}) }}>
+        {/* Logo Container */}
         <div onClick={() => { handleNavClick('home'); setMobileMenuOpen(false); }} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '12px' }}>
           <img src={logoImg} alt="Sri Krishna Modern Rice Mill" style={{ height: '44px', width: '44px', borderRadius: '50%', objectFit: 'cover' }} />
         </div>
@@ -112,14 +113,38 @@ export default function Navbar({ currentPage, navigateTo }) {
           </button>
         </div>
 
-        {/* Mobile Menu Icon Button */}
-        <button 
-          className="mobile-menu-toggle" 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle Navigation Menu"
-        >
-          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        {/* Mobile-Only Header Group (Get Quote + Hamburger Menu) */}
+        <div className="mobile-only-header-group" style={{ alignItems: 'center', gap: '10px' }}>
+          <button 
+            style={{
+              ...styles.cta,
+              padding: '0.45rem 1rem',
+              fontSize: '0.75rem',
+            }}
+            onClick={() => {
+              handleNavClick('contact');
+              setMobileMenuOpen(false);
+            }}
+          >
+            Get Quote
+          </button>
+          <button 
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: '#FFF8E7',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 0,
+            }}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Navigation Menu"
+          >
+            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
 
         {/* Mobile Menu Dropdown Drawer */}
         {mobileMenuOpen && (

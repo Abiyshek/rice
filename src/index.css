@@ -49,6 +49,9 @@ section { min-height: 100vh; }
 .mobile-menu-toggle {
   display: none !important;
 }
+.mobile-only-header-group {
+  display: none !important;
+}
 
 @media (max-width: 900px) {
   .desktop-nav-links {
@@ -57,14 +60,11 @@ section { min-height: 100vh; }
   .desktop-nav-cta {
     display: none !important;
   }
-  .mobile-menu-toggle {
+  .mobile-only-header-group {
     display: flex !important;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    color: #FFF8E7;
-    cursor: pointer;
+  }
+  .mobile-menu-toggle {
+    display: none !important;
   }
   .nav-links-list {
     overflow-x: auto !important;
