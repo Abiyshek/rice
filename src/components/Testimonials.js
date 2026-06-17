@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Star, MessageSquare, ExternalLink, Calendar, Award } from 'lucide-react';
 
 // ==========================================
-// CONFIGURATION: Drop in your Google Places API Key and Place ID here
+// CONFIGURATION: Set your Elfsight Widget ID here
+// If left blank, the website will show the custom local reviews.
 // ==========================================
-const GOOGLE_API_KEY = ""; // Enter your Google Places API Key here
-const GOOGLE_PLACE_ID = ""; // Enter your Google Place ID here
+const ELFSIGHT_WIDGET_ID = ""; // Paste your Elfsight widget ID here (e.g. "f56b3e7a-12e0-4a8b...")
 
 const mockReviews = [
   {
@@ -51,133 +51,26 @@ const mockReviews = [
 ];
 
 export default function Testimonials() {
-  const [reviews, setReviews] = useState(mockReviews);
-  const [loading, setLoading] = useState(false);
-  const [googleRating, setGoogleRating] = useState(4.8);
-  const [totalRatings, setTotalRatings] = useState(124);
+  const [reviews] = useState(mockReviews);
+  const [googleRating] = useState(4.8);
+  const [totalRatings] = useState(124);
   const [isHoveredBtn, setIsHoveredBtn] = useState(false);
 
-  // Dynamically load Google Maps script and fetch reviews
+  // Load Elfsight Widget Script if Widget ID is provided
   useEffect(() => {
-    // If no credentials are set, cleanly use the mockReviews
-    if (!GOOGLE_API_KEY || !GOOGLE_PLACE_ID) {
-      setReviews(mockReviews);
-      setGoogleRating(4.8);
-      setTotalRatings(124);
-      return;
-    }
+    if (!ELFSIGHT_WIDGET_ID) return;
 
-    setLoading(true);
+    const script = document.createElement('script');
+    script.src = "https://static.elfsight.com/platform/platform.js";
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
 
-    const fetchLiveReviews = async () => {
-      try {
-        // Try the modern google.maps.places.Place class (required for Google Cloud projects created after March 1, 2025)
-        if (window.google && window.google.maps && window.google.maps.importLibrary) {
-          try {
-            const { Place } = await window.google.maps.importLibrary("places");
-            const place = new Place({
-              id: GOOGLE_PLACE_ID,
-              requestedLanguage: "en",
-            });
-            
-            await place.fetchFields({
-              fields: ["reviews", "rating", "userRatingsTotal"],
-            });
-
-            if (place.reviews && place.reviews.length > 0) {
-              const formattedReviews = place.reviews.map(r => ({
-                author_name: r.authorName || r.author_name,
-                rating: r.rating,
-                relative_time_description: r.relativePublishTimeDescription || r.relative_time_description,
-                text: r.text || r.textDescription,
-                profile_photo_url: r.authorPhotoUri || r.profile_photo_url,
-                badge: r.rating === 5 ? 'Google Verified Review' : 'Google Review'
-              }));
-              setReviews(formattedReviews);
-              if (place.rating) setGoogleRating(place.rating);
-              if (place.userRatingsTotal) setTotalRatings(place.userRatingsTotal);
-              setLoading(false);
-              return; // Success! Exit early
-            }
-          } catch (modernErr) {
-            console.warn('Modern Place API failed, falling back to legacy PlacesService:', modernErr);
-          }
-        }
-
-        // Legacy Fallback (PlacesService)
-        const dummyDiv = document.createElement('div');
-        const service = new window.google.maps.places.PlacesService(dummyDiv);
-        
-        service.getDetails(
-          {
-            placeId: GOOGLE_PLACE_ID,
-            fields: ['reviews', 'rating', 'user_ratings_total'],
-          },
-          (place, status) => {
-            if (status === window.google.maps.places.PlacesServiceStatus.OK && place) {
-              if (place.reviews && place.reviews.length > 0) {
-                const formattedReviews = place.reviews.map(r => ({
-                  author_name: r.author_name,
-                  rating: r.rating,
-                  relative_time_description: r.relative_time_description,
-                  text: r.text,
-                  profile_photo_url: r.profile_photo_url,
-                  badge: r.rating === 5 ? 'Google Verified Review' : 'Google Review'
-                }));
-                setReviews(formattedReviews);
-                if (place.rating) setGoogleRating(place.rating);
-                if (place.user_ratings_total) setTotalRatings(place.user_ratings_total);
-              }
-            } else {
-              console.error('Google Places details failed with status:', status);
-              setReviews(mockReviews);
-            }
-            setLoading(false);
-          }
-        );
-      } catch (err) {
-        console.error('Error in Places Service execution:', err);
-        setReviews(mockReviews);
-        setLoading(false);
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
       }
     };
-
-    const loadGoogleMaps = () => {
-      // Check if already loaded
-      if (window.google && window.google.maps && window.google.maps.places) {
-        fetchLiveReviews();
-        return;
-      }
-
-      // Check if script already appended
-      const existingScript = document.getElementById('google-maps-places-script');
-      if (existingScript) {
-        const interval = setInterval(() => {
-          if (window.google && window.google.maps && window.google.maps.places) {
-            clearInterval(interval);
-            fetchLiveReviews();
-          }
-        }, 100);
-        return;
-      }
-
-      const script = document.createElement('script');
-      script.id = 'google-maps-places-script';
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places&v=weekly`;
-      script.async = true;
-      script.defer = true;
-      script.onload = () => {
-        fetchLiveReviews();
-      };
-      script.onerror = () => {
-        console.error('Failed to load Google Maps API script.');
-        setReviews(mockReviews);
-        setLoading(false);
-      };
-      document.head.appendChild(script);
-    };
-
-    loadGoogleMaps();
   }, []);
 
   return (
@@ -220,95 +113,109 @@ export default function Testimonials() {
       `}</style>
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
-        
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '5rem', position: 'relative' }}>
-          
-          <div style={{
-            fontSize: '0.9rem',
-            letterSpacing: '0.4em',
-            color: '#000000',
-            textTransform: 'uppercase',
-            marginBottom: 12,
-            fontWeight: 700,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            justifyContent: 'center'
-          }}>
-            <MessageSquare size={16} color="#D4A017" /> What People Say
-          </div>
-          
-          <h2 style={{
-            fontFamily: "'Cinzel', serif",
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            color: '#FFF8E7',
-            marginBottom: '1rem',
-            textShadow: '0 4px 10px rgba(0,0,0,0.5)'
-          }}>
-            Google Customer Reviews
-          </h2>
-          
-          <div style={{
-            background: 'rgba(26, 26, 14, 0.65)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid rgba(212, 160, 23, 0.25)',
-            borderRadius: '50px',
-            padding: '0.75rem 2rem',
-            maxWidth: '650px',
-            margin: '0 auto 2rem auto',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '1.5rem',
-            flexWrap: 'wrap'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#D4A017' }}>{googleRating.toFixed(1)}</span>
-              <div style={{ display: 'flex', gap: '2px' }}>
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} size={16} fill="#D4A017" color="#D4A017" />
-                ))}
+        {ELFSIGHT_WIDGET_ID ? (
+          /* Live Elfsight Widget */
+          <div>
+            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+              <div style={{
+                fontSize: '0.9rem',
+                letterSpacing: '0.4em',
+                color: '#000000',
+                textTransform: 'uppercase',
+                marginBottom: 12,
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                justifyContent: 'center'
+              }}>
+                <MessageSquare size={16} color="#D4A017" /> What People Say
               </div>
+              <h2 style={{
+                fontFamily: "'Cinzel', serif",
+                fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                color: '#FFF8E7',
+                marginBottom: '1rem',
+                textShadow: '0 4px 10px rgba(0,0,0,0.5)'
+              }}>
+                Google Customer Reviews
+              </h2>
             </div>
-            <div style={{ width: '1px', height: '20px', background: 'rgba(255,248,231,0.2)' }} />
-            <p style={{ color: '#FFF8E7', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
-              Based on {totalRatings} verified Google Business ratings
-            </p>
-          </div>
-        </div>
-
-        {/* Reviews Grid */}
-        {loading ? (
-          <div style={{ textAlign: 'center', color: '#FFF8E7', padding: '3rem' }}>
-            <div className="spinner" style={{
-              width: '40px', height: '40px', border: '3px solid rgba(212,160,23,0.3)',
-              borderTopColor: '#D4A017', borderRadius: '50%', animation: 'spin 1s linear infinite',
-              margin: '0 auto 1rem auto'
-            }} />
-            <p style={{ fontWeight: 600 }}>Fetching Live Google Reviews...</p>
-            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+            
+            <div className={`elfsight-app-${ELFSIGHT_WIDGET_ID}`} data-elfsight-app-lazy></div>
           </div>
         ) : (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '2rem',
-            marginBottom: '4rem'
-          }}>
-            {reviews.map((r, idx) => (
-              <div key={idx} className="review-card">
-                {/* Header info */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-                  <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    {r.profile_photo_url ? (
-                      <img 
-                        src={r.profile_photo_url} 
-                        alt={r.author_name} 
-                        style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover' }}
-                      />
-                    ) : (
+          /* Fallback Custom Local Reviews */
+          <div>
+            {/* Header */}
+            <div style={{ textAlign: 'center', marginBottom: '5rem', position: 'relative' }}>
+              <div style={{
+                fontSize: '0.9rem',
+                letterSpacing: '0.4em',
+                color: '#000000',
+                textTransform: 'uppercase',
+                marginBottom: 12,
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                justifyContent: 'center'
+              }}>
+                <MessageSquare size={16} color="#D4A017" /> What People Say
+              </div>
+              
+              <h2 style={{
+                fontFamily: "'Cinzel', serif",
+                fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                color: '#FFF8E7',
+                marginBottom: '1rem',
+                textShadow: '0 4px 10px rgba(0,0,0,0.5)'
+              }}>
+                Google Customer Reviews
+              </h2>
+              
+              <div style={{
+                background: 'rgba(26, 26, 14, 0.65)',
+                backdropFilter: 'blur(16px)',
+                border: '1px solid rgba(212, 160, 23, 0.25)',
+                borderRadius: '50px',
+                padding: '0.75rem 2rem',
+                maxWidth: '650px',
+                margin: '0 auto 2rem auto',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '1.5rem',
+                flexWrap: 'wrap'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#D4A017' }}>{googleRating.toFixed(1)}</span>
+                  <div style={{ display: 'flex', gap: '2px' }}>
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <Star key={s} size={16} fill="#D4A017" color="#D4A017" />
+                    ))}
+                  </div>
+                </div>
+                <div style={{ width: '1px', height: '20px', background: 'rgba(255,248,231,0.2)' }} />
+                <p style={{ color: '#FFF8E7', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
+                  Based on {totalRatings} verified Google Business ratings
+                </p>
+              </div>
+            </div>
+
+            {/* Reviews Grid */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '2rem',
+              marginBottom: '4rem'
+            }}>
+              {reviews.map((r, idx) => (
+                <div key={idx} className="review-card">
+                  {/* Header info */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                       <div style={{
                         width: '44px', height: '44px', borderRadius: '50%',
                         background: 'linear-gradient(135deg, #D4A017, #E8623A)',
@@ -318,94 +225,93 @@ export default function Testimonials() {
                       }}>
                         {r.author_name ? r.author_name.charAt(0) : 'G'}
                       </div>
-                    )}
-                    <div>
-                      <h4 style={{ fontFamily: "'Cinzel', serif", fontSize: '1rem', color: '#FFF8E7', margin: 0 }}>
-                        {r.author_name}
-                      </h4>
-                      <span style={{ fontSize: '0.75rem', color: 'rgba(255, 248, 231, 0.55)', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
-                        <Calendar size={12} /> {r.relative_time_description || 'Recently'}
-                      </span>
+                      <div>
+                        <h4 style={{ fontFamily: "'Cinzel', serif", fontSize: '1rem', color: '#FFF8E7', margin: 0 }}>
+                          {r.author_name}
+                        </h4>
+                        <span style={{ fontSize: '0.75rem', color: 'rgba(255, 248, 231, 0.55)', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
+                          <Calendar size={12} /> {r.relative_time_description || 'Recently'}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="google-badge">
+                      G
                     </div>
                   </div>
-                  <div className="google-badge">
-                    G
+
+                  {/* Rating Stars */}
+                  <div style={{ display: 'flex', gap: '3px', marginBottom: '1rem' }}>
+                    {[1, 2, 3, 4, 5].map((starIdx) => (
+                      <Star
+                        key={starIdx}
+                        size={16}
+                        fill={starIdx <= r.rating ? '#D4A017' : 'none'}
+                        color={starIdx <= r.rating ? '#D4A017' : 'rgba(255,248,231,0.2)'}
+                      />
+                    ))}
                   </div>
-                </div>
 
-                {/* Rating Stars */}
-                <div style={{ display: 'flex', gap: '3px', marginBottom: '1rem' }}>
-                  {[1, 2, 3, 4, 5].map((starIdx) => (
-                    <Star
-                      key={starIdx}
-                      size={16}
-                      fill={starIdx <= r.rating ? '#D4A017' : 'none'}
-                      color={starIdx <= r.rating ? '#D4A017' : 'rgba(255,248,231,0.2)'}
-                    />
-                  ))}
-                </div>
-
-                {/* Review Text */}
-                <p style={{
-                  fontSize: '0.95rem',
-                  lineHeight: 1.7,
-                  color: 'rgba(255, 248, 231, 0.85)',
-                  fontStyle: 'italic',
-                  margin: 0
-                }}>
-                  "{r.text}"
-                </p>
-
-                {/* User Role Badge */}
-                {r.badge && (
-                  <div style={{
-                    marginTop: '1.5rem',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    fontSize: '0.7rem',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    color: '#D4A017',
-                    letterSpacing: '0.1em'
+                  {/* Review Text */}
+                  <p style={{
+                    fontSize: '0.95rem',
+                    lineHeight: 1.7,
+                    color: 'rgba(255, 248, 231, 0.85)',
+                    fontStyle: 'italic',
+                    margin: 0
                   }}>
-                    <Award size={12} /> {r.badge}
-                  </div>
-                )}
-              </div>
-            ))}
+                    "{r.text}"
+                  </p>
+
+                  {/* User Role Badge */}
+                  {r.badge && (
+                    <div style={{
+                      marginTop: '1.5rem',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      fontSize: '0.7rem',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      color: '#D4A017',
+                      letterSpacing: '0.1em'
+                    }}>
+                      <Award size={12} /> {r.badge}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* CTA to write reviews */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap', marginTop: '2rem' }}>
+              <button
+                onClick={() => window.open('https://maps.google.com/?q=Sri+Krishna+Modern+Rice+Mill+Andiyarpalayam+Puducherry', '_blank')}
+                onMouseEnter={() => setIsHoveredBtn(true)}
+                onMouseLeave={() => setIsHoveredBtn(false)}
+                style={{
+                  background: isHoveredBtn ? 'linear-gradient(135deg, #E8623A, #D4A017)' : 'linear-gradient(135deg, #D4A017, #E8623A)',
+                  color: '#1A1A0E',
+                  padding: '1.25rem 2.5rem',
+                  borderRadius: '50px',
+                  border: 'none',
+                  fontFamily: "'Raleway', sans-serif",
+                  fontWeight: 800,
+                  fontSize: '1rem',
+                  cursor: 'pointer',
+                  boxShadow: '0 8px 30px rgba(212,160,23,0.4)',
+                  transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  transform: isHoveredBtn ? 'translateY(-3px)' : 'translateY(0)'
+                }}
+              >
+                <span>Write a Review on Google</span>
+                <ExternalLink size={18} />
+              </button>
+            </div>
           </div>
         )}
-
-        {/* CTA to write/view all reviews */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap', marginTop: '2rem' }}>
-          <button
-            onClick={() => window.open('https://maps.google.com/?q=Sri+Krishna+Modern+Rice+Mill+Andiyarpalayam+Puducherry', '_blank')}
-            onMouseEnter={() => setIsHoveredBtn(true)}
-            onMouseLeave={() => setIsHoveredBtn(false)}
-            style={{
-              background: isHoveredBtn ? 'linear-gradient(135deg, #E8623A, #D4A017)' : 'linear-gradient(135deg, #D4A017, #E8623A)',
-              color: '#1A1A0E',
-              padding: '1.25rem 2.5rem',
-              borderRadius: '50px',
-              border: 'none',
-              fontFamily: "'Raleway', sans-serif",
-              fontWeight: 800,
-              fontSize: '1rem',
-              cursor: 'pointer',
-              boxShadow: '0 8px 30px rgba(212,160,23,0.4)',
-              transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              transform: isHoveredBtn ? 'translateY(-3px)' : 'translateY(0)'
-            }}
-          >
-            <span>Write a Review on Google</span>
-            <ExternalLink size={18} />
-          </button>
-        </div>
-
       </div>
     </section>
   );

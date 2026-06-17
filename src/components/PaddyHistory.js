@@ -42,15 +42,18 @@ export default function PaddyHistory() {
   const [videoDuration, setVideoDuration] = useState(0);
   const [cardWidth, setCardWidth] = useState(280);
   const [gap, setGap] = useState(24);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setCardWidth(Math.min(window.innerWidth * 0.8, 280));
         setGap(16);
+        setIsDesktop(false);
       } else {
         setCardWidth(300);
         setGap(24);
+        setIsDesktop(true);
       }
     };
     handleResize();
@@ -135,7 +138,17 @@ export default function PaddyHistory() {
         </div>
 
         {/* Center Video Section */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', width: '100%', maxWidth: '500px', padding: '0 1rem' }}>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.8rem',
+          width: '100%',
+          maxWidth: isDesktop ? '760px' : '500px',
+          padding: '0 1rem',
+          transition: 'max-width 0.3s ease-in-out'
+        }}>
           <video
             ref={videoRef}
             src={paddyGrowth}
@@ -143,12 +156,13 @@ export default function PaddyHistory() {
             playsInline
             style={{
               width: '100%',
-              height: 'clamp(180px, 28vh, 260px)',
+              height: isDesktop ? 'clamp(280px, 42vh, 400px)' : 'clamp(180px, 28vh, 260px)',
               display: 'block',
               objectFit: 'contain',
               backgroundColor: 'rgba(0,0,0,0.3)',
               borderRadius: 16,
               border: '2px solid rgba(212, 160, 23, 0.3)',
+              transition: 'height 0.3s ease-in-out'
             }}
           />
           {/* Stage pill */}
