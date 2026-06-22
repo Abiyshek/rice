@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MapPin, Phone, Mail } from 'lucide-react';
 
 const FacebookIcon = (props) => (
@@ -12,6 +12,51 @@ const LinkedinIcon = (props) => (
     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
   </svg>
 );
+
+function ContactCard({ item }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div 
+      onClick={item.onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        textAlign: 'center', padding: '1.8rem 1.2rem',
+        background: hovered ? 'linear-gradient(135deg, #2C6B37 0%, #0066CC 100%)' : '#FFFFFF',
+        border: hovered ? '3px solid transparent' : '3px solid #5C3D24',
+        borderRadius: 16,
+        transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+        cursor: 'pointer',
+        boxShadow: hovered ? '0 15px 35px rgba(0, 102, 204, 0.18)' : '0 8px 24px rgba(0,0,0,0.02)',
+        transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
+      }}
+    >
+      <div style={{ fontSize: '1.5rem', marginBottom: 8, transition: 'all 0.3s' }}>
+        {React.createElement(item.icon, { size: 24, color: hovered ? '#FFFFFF' : '#2C6B37' })}
+      </div>
+      <div style={{ 
+        fontSize: '0.75rem', 
+        letterSpacing: '0.15em', 
+        color: hovered ? '#EAECEE' : '#5C6757', 
+        marginBottom: 6, 
+        fontWeight: 700, 
+        textTransform: 'uppercase',
+        transition: 'color 0.3s'
+      }}>
+        {item.label}
+      </div>
+      <div style={{ 
+        fontSize: '0.88rem', 
+        color: hovered ? '#FFFFFF' : '#1C231A', 
+        fontWeight: 800, 
+        lineHeight: 1.5,
+        transition: 'color 0.3s'
+      }}>
+        {item.value}
+      </div>
+    </div>
+  );
+}
 
 export default function Contact() {
 
@@ -30,6 +75,34 @@ export default function Contact() {
     },
   ];
 
+  const contactDetails = [
+    { 
+      icon: MapPin, 
+      label: 'Address', 
+      value: 'R.S.No:138/1&2 Mankuppam main road, Andiyarpalayam, P.O, Gangarampalaiyam, Puducherry, 605108',
+      onClick: () => window.open('https://maps.google.com/?q=Sri+Krishna+Modern+Rice+Mill+Andiyarpalayam+Puducherry', '_blank'),
+    },
+    { 
+      icon: Phone, 
+      label: 'Phone', 
+      value: '+91 XXXXX XXXXX',
+      onClick: () => {
+        const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 0 && window.innerWidth <= 768);
+        if (isMobile) {
+          window.location.href = 'tel:+919999999999';
+        } else {
+          window.open('https://wa.me/919999999999', '_blank');
+        }
+      },
+    },
+    { 
+      icon: Mail, 
+      label: 'Email', 
+      value: 'info@srikrishnarice.com',
+      onClick: () => window.open('https://mail.google.com/mail/?view=cm&to=info@srikrishnarice.com', '_blank'),
+    },
+  ];
+
   return (
     <section id="contact" style={{
       background: 'transparent',
@@ -38,97 +111,38 @@ export default function Contact() {
 
       <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '0.9rem', letterSpacing: '0.4em', color: '#000000', textTransform: 'uppercase', marginBottom: 12, fontWeight: 700 }}>
+          <div style={{ fontSize: '0.9rem', letterSpacing: '0.4em', color: '#2C6B37', textTransform: 'uppercase', marginBottom: 12, fontWeight: 800 }}>
             Connect With Us
           </div>
-          <h2 style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#FFF8E7', marginBottom: '1rem' }}>
+          <h2 style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#1C231A', marginBottom: '1.5rem' }}>
             Get a Quote
           </h2>
           <div style={{
-            background: 'rgba(26, 26, 14, 0.65)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid rgba(212, 160, 23, 0.25)',
+            background: '#FFFFFF',
+            border: '1px solid rgba(44, 107, 55, 0.15)',
             borderRadius: '50px',
             padding: '0.75rem 2rem',
             maxWidth: '650px',
             margin: '0 auto',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+            boxShadow: '0 8px 30px rgba(44, 107, 55, 0.04)',
           }}>
-            <p style={{ color: '#FFF8E7', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
+            <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
               Bulk orders, export inquiries, or just a question — we'd love to hear from you.
             </p>
           </div>
         </div>
 
         {/* Contact info */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
-          {[
-            { 
-              icon: MapPin, 
-              label: 'Address', 
-              value: 'R.S.No:138/1&2 Mankuppam main road, Andiyarpalayam, P.O, Gangarampalaiyam, Puducherry, 605108',
-              onClick: () => window.open('https://maps.google.com/?q=Sri+Krishna+Modern+Rice+Mill+Andiyarpalayam+Puducherry', '_blank'),
-            },
-            { 
-              icon: Phone, 
-              label: 'Phone', 
-              value: '+91 XXXXX XXXXX',
-              onClick: () => {
-                const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 0 && window.innerWidth <= 768);
-                if (isMobile) {
-                  window.location.href = 'tel:+919999999999';
-                } else {
-                  window.open('https://wa.me/919999999999', '_blank');
-                }
-              },
-            },
-            { 
-              icon: Mail, 
-              label: 'Email', 
-              value: 'info@srikrishnarice.com',
-              onClick: () => window.open('https://mail.google.com/mail/?view=cm&to=info@srikrishnarice.com', '_blank'),
-            },
-          ].map((c, i) => (
-            <div key={i}
-              onClick={c.onClick}
-              style={{
-                textAlign: 'center', padding: '1.5rem 1rem',
-                background: 'rgba(144, 200, 100, 0.75)',
-                border: '2px solid rgba(90, 150, 50, 0.9)',
-                borderRadius: 14,
-                transition: 'all 0.3s',
-                cursor: 'pointer',
-              }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(144, 200, 100, 0.9)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'rgba(144, 200, 100, 0.75)'}
-            >
-              <div style={{ fontSize: '1.5rem', marginBottom: 8 }}>{React.createElement(c.icon, { size: 24, color: '#1A1A0E' })}</div>
-              <div style={{ fontSize: '0.7rem', letterSpacing: '0.2em', color: '#1A1A0E', marginBottom: 4, fontWeight: 700 }}>{c.label}</div>
-              <div style={{ fontSize: '0.85rem', color: '#1A1A0E', fontWeight: 700 }}>{c.value}</div>
-            </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.2rem' }}>
+          {contactDetails.map((c, i) => (
+            <ContactCard key={i} item={c} />
           ))}
         </div>
 
         {/* Social channels */}
         <div className="responsive-grid-2">
           {socials.map((s, i) => (
-            <div key={i}
-              onClick={s.onClick}
-              style={{
-                textAlign: 'center', padding: '1.5rem 1rem',
-                background: 'rgba(144, 200, 100, 0.75)',
-                border: '2px solid rgba(90, 150, 50, 0.9)',
-                borderRadius: 14,
-                transition: 'all 0.3s',
-                cursor: 'pointer',
-              }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(144, 200, 100, 0.9)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'rgba(144, 200, 100, 0.75)'}
-            >
-              <div style={{ fontSize: '1.5rem', marginBottom: 8 }}>{React.createElement(s.icon, { size: 24, color: '#1A1A0E' })}</div>
-              <div style={{ fontSize: '0.7rem', letterSpacing: '0.2em', color: '#1A1A0E', marginBottom: 4, fontWeight: 700 }}>{s.label}</div>
-              <div style={{ fontSize: '0.85rem', color: '#1A1A0E', fontWeight: 700 }}>{s.value}</div>
-            </div>
+            <ContactCard key={i} item={s} />
           ))}
         </div>
 
@@ -137,20 +151,26 @@ export default function Contact() {
           <button
             onClick={() => window.open('https://forms.gle/hYcCQCLbAZouTpTX7', '_blank')}
             style={{
-              background: 'linear-gradient(135deg, #D4A017, #E8623A)',
-              color: '#1A1A0E',
-              padding: '1.25rem 3rem',
+              background: 'linear-gradient(135deg, #2C6B37, #4B9B5E)',
+              color: '#FFFFFF',
+              padding: '1.25rem 3.5rem',
               borderRadius: '50px',
               border: 'none',
               fontFamily: "'Raleway', sans-serif",
               fontWeight: 800,
               fontSize: '1rem',
               cursor: 'pointer',
-              boxShadow: '0 8px 30px rgba(212,160,23,0.4)',
-              transition: 'transform 0.2s, box-shadow 0.2s',
+              boxShadow: '0 8px 25px rgba(44, 107, 55, 0.25)',
+              transition: 'all 0.3s ease',
             }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.boxShadow = '0 12px 35px rgba(212,160,23,0.6)'; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(212,160,23,0.4)'; }}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 12px 30px rgba(44, 107, 55, 0.35)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(44, 107, 55, 0.25)';
+            }}
           >
             Submit Requirements & Feedback
           </button>

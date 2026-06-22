@@ -143,12 +143,12 @@ export default function PaddyHistory() {
           textAlign: 'center', zIndex: 10,
           width: '100%', padding: '0 1rem'
         }}>
-          <div style={{ fontSize: '0.85rem', letterSpacing: '0.4em', color: '#000000', textTransform: 'uppercase', marginBottom: 4, fontWeight: 700 }}>
+          <div style={{ fontSize: '0.85rem', letterSpacing: '0.4em', color: '#2C6B37', textTransform: 'uppercase', marginBottom: 4, fontWeight: 800 }}>
             Our Journey
           </div>
           <h2 style={{
             fontFamily: "'Cinzel', serif",
-            fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: '#FFF8E7',
+            fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: '#1C231A',
             margin: 0,
           }}>
             From Seed to Legacy
@@ -177,16 +177,17 @@ export default function PaddyHistory() {
               height: isDesktop ? 'clamp(280px, 42vh, 400px)' : 'clamp(180px, 28vh, 260px)',
               display: 'block',
               objectFit: 'contain',
-              backgroundColor: 'rgba(0,0,0,0.3)',
+              backgroundColor: '#FFFFFF',
               borderRadius: 16,
-              border: '2px solid rgba(212, 160, 23, 0.3)',
+              border: '2px solid rgba(44, 107, 55, 0.25)',
+              boxShadow: '0 8px 30px rgba(0,0,0,0.05)',
               transition: 'height 0.3s ease-in-out'
             }}
           />
           {/* Stage pill */}
           <div style={{
-            background: 'black',
-            border: '2px solid rgba(90, 150, 50, 0.9)',
+            background: '#2C6B37',
+            border: '2px solid #4B9B5E',
             borderRadius: 30, padding: '0.4rem 1.2rem',
             fontSize: '0.8rem', letterSpacing: '0.1em',
             color: '#ffffff', fontWeight: 700,
@@ -200,7 +201,7 @@ export default function PaddyHistory() {
             {stages.map((_, i) => (
               <div key={i} style={{
                 width: 8, height: 8, borderRadius: '50%',
-                background: i <= activeStage ? '#171100' : 'rgba(255,248,231,0.2)',
+                background: i <= activeStage ? '#2C6B37' : 'rgba(44, 107, 55, 0.2)',
                 transition: 'all 0.4s',
                 transform: i === activeStage ? 'scale(1.4)' : 'scale(1)',
               }} />
@@ -231,26 +232,46 @@ export default function PaddyHistory() {
                   style={{
                     width: cardWidth,
                     flexShrink: 0,
-                    background: 'rgba(106, 170, 93, 1)',
-                    border: `2px solid ${isActive ? stage.color : 'rgba(90, 150, 50, 0.9)'}`,
+                    background: isActive ? 'linear-gradient(135deg, #2C6B37 0%, #0066CC 100%)' : '#FFFFFF',
+                    border: isActive ? '3px solid transparent' : '3px solid #5C3D24',
                     borderRadius: 16,
-                    padding: '1.2rem 1.4rem',
+                    padding: '1.5rem',
                     textAlign: 'center',
                     transition: 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)',
                     transform: isActive ? 'scale(1.05)' : 'scale(0.9)',
-                    opacity: isActive ? 1 : 0.4,
-                    boxShadow: isActive ? `0 8px 25px ${stage.color}35` : 'none',
-                    backdropFilter: isActive ? 'blur(8px)' : 'none',
+                    opacity: isActive ? 1 : 0.5,
+                    boxShadow: isActive ? '0 12px 35px rgba(0, 102, 204, 0.25)' : '0 4px 15px rgba(0, 0, 0, 0.02)',
                     cursor: 'pointer',
                   }}
                 >
-                  <div style={{ fontSize: '0.75rem', letterSpacing: '0.3em', color: stage.color, marginBottom: 4, fontWeight: 700 }}>
+                  <div style={{
+                    fontSize: '0.85rem',
+                    letterSpacing: '0.25em',
+                    color: isActive ? '#F1C40F' : '#C99414',
+                    marginBottom: 6,
+                    fontWeight: 800,
+                    transition: 'color 0.3s'
+                  }}>
                     {stage.year}
                   </div>
-                  <h3 style={{ fontFamily: "'Cinzel', serif", fontSize: '1.15rem', color: '#1A1A0E', marginBottom: 6, fontWeight: 700 }}>
+                  <h3 style={{
+                    fontFamily: "'Cinzel', serif",
+                    fontSize: '1.25rem',
+                    color: isActive ? '#FFFFFF' : '#1C231A',
+                    marginBottom: 8,
+                    fontWeight: 800,
+                    transition: 'color 0.3s'
+                  }}>
                     {stage.title}
                   </h3>
-                  <p style={{ fontSize: '0.8rem', color: '#2D2D1F', lineHeight: 1.5, fontWeight: 700, margin: 0 }}>
+                  <p style={{
+                    fontSize: '0.85rem',
+                    color: isActive ? '#EAECEE' : '#5C6757',
+                    lineHeight: 1.6,
+                    fontWeight: 500,
+                    margin: 0,
+                    transition: 'color 0.3s'
+                  }}>
                     {stage.desc}
                   </p>
                 </div>

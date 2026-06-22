@@ -25,6 +25,7 @@ const clients = [
 export default function Customers() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -66,23 +67,22 @@ export default function Customers() {
     }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <div style={{ fontSize: '0.9rem', letterSpacing: '0.4em', color: '#000000', textTransform: 'uppercase', marginBottom: 12, fontWeight: 700 }}>
+          <div style={{ fontSize: '0.9rem', letterSpacing: '0.4em', color: '#2C6B37', textTransform: 'uppercase', marginBottom: 12, fontWeight: 800 }}>
             Trusted Partners
           </div>
-          <h2 style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#FFF8E7', marginBottom: '1rem' }}>
+          <h2 style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#1C231A', marginBottom: '1.5rem' }}>
             Brands That Trust Us
           </h2>
           <div style={{
-            background: 'rgba(26, 26, 14, 0.65)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid rgba(212, 160, 23, 0.25)',
+            background: '#FFFFFF',
+            border: '1px solid rgba(44, 107, 55, 0.15)',
             borderRadius: '50px',
             padding: '0.75rem 2rem',
             maxWidth: '650px',
             margin: '0 auto',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+            boxShadow: '0 8px 30px rgba(44, 107, 55, 0.04)',
           }}>
-            <p style={{ color: '#FFF8E7', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
+            <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
               From retail giants to premium hotels — our rice is on tables across South India and beyond.
             </p>
           </div>
@@ -100,8 +100,8 @@ export default function Customers() {
               left: arrowLeft,
               top: '50%',
               transform: 'translateY(-50%)',
-              background: 'rgba(90, 150, 50, 0.9)',
-              border: '2px solid rgba(255, 248, 231, 0.8)',
+              background: '#2C6B37',
+              border: '2px solid #4B9B5E',
               borderRadius: '50%',
               width: `${arrowSize}px`,
               height: `${arrowSize}px`,
@@ -109,24 +109,24 @@ export default function Customers() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: '#FFF8E7',
+              color: '#FFFFFF',
               zIndex: 10,
-              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-              transition: 'all 0.2s ease',
+              boxShadow: '0 4px 15px rgba(44, 107, 55, 0.25)',
+              transition: 'all 0.3s ease',
             }}
             onMouseEnter={e => {
               e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
-              e.currentTarget.style.background = 'rgba(90, 150, 50, 1)';
+              e.currentTarget.style.background = '#1D4B24';
             }}
             onMouseLeave={e => {
               e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-              e.currentTarget.style.background = 'rgba(90, 150, 50, 0.9)';
+              e.currentTarget.style.background = '#2C6B37';
             }}
           >
             <ChevronLeft size={isMobile ? 18 : 24} />
           </button>
 
-          <div style={{ overflow: 'hidden', borderRadius: '24px', boxShadow: '0 12px 30px rgba(0,0,0,0.15)' }}>
+          <div style={{ overflow: 'hidden', borderRadius: '24px', boxShadow: '0 12px 40px rgba(0,0,0,0.03)' }}>
             <div style={{
               display: 'flex',
               transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -135,8 +135,8 @@ export default function Customers() {
               {clients.map((c, i) => (
                 <div key={i} style={{
                   minWidth: '100%',
-                  background: 'rgba(144, 200, 100, 0.85)',
-                  border: '2px solid rgba(90, 150, 50, 0.9)',
+                  background: '#FFFFFF',
+                  border: '3px solid #5C3D24',
                   borderRadius: '24px',
                   padding: cardPadding,
                   boxSizing: 'border-box',
@@ -148,7 +148,7 @@ export default function Customers() {
                 }}>
                   {/* Brand Image inside wheat style ring */}
                   <div style={{
-                    background: 'rgba(255, 255, 255, 0.9)',
+                    background: '#FFFFFF',
                     borderRadius: '50%',
                     padding: isMobile ? '1rem' : '1.5rem',
                     width: logoSize,
@@ -156,8 +156,8 @@ export default function Customers() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: '0 8px 20px rgba(0,0,0,0.1)',
-                    border: `3px solid ${c.color || '#D4A017'}`,
+                    boxShadow: '0 6px 18px rgba(0,0,0,0.02)',
+                    border: `3px solid ${c.color || '#C99414'}`,
                     flexShrink: 0,
                   }}>
                     <img 
@@ -173,10 +173,10 @@ export default function Customers() {
                   
                   {/* Info */}
                   <div>
-                    <h3 style={{ fontFamily: "'Cinzel', serif", fontSize: titleSize, color: '#1A1A0E', marginBottom: '0.5rem', fontWeight: 700 }}>
+                    <h3 style={{ fontFamily: "'Raleway', sans-serif", fontSize: titleSize, color: '#1C231A', marginBottom: '0.5rem', fontWeight: 800 }}>
                       {c.name}
                     </h3>
-                    <p style={{ fontSize: descSize, color: '#2D2D1F', lineHeight: 1.6, fontWeight: 700, maxWidth: '550px', margin: '0 auto' }}>
+                    <p style={{ fontSize: descSize, color: '#5C6757', lineHeight: 1.7, fontWeight: 500, maxWidth: '550px', margin: '0 auto' }}>
                       {c.desc}
                     </p>
                   </div>
@@ -193,8 +193,8 @@ export default function Customers() {
               right: arrowRight,
               top: '50%',
               transform: 'translateY(-50%)',
-              background: 'rgba(90, 150, 50, 0.9)',
-              border: '2px solid rgba(255, 248, 231, 0.8)',
+              background: '#2C6B37',
+              border: '2px solid #4B9B5E',
               borderRadius: '50%',
               width: `${arrowSize}px`,
               height: `${arrowSize}px`,
@@ -202,18 +202,18 @@ export default function Customers() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: '#FFF8E7',
+              color: '#FFFFFF',
               zIndex: 10,
-              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-              transition: 'all 0.2s ease',
+              boxShadow: '0 4px 15px rgba(44, 107, 55, 0.25)',
+              transition: 'all 0.3s ease',
             }}
             onMouseEnter={e => {
               e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
-              e.currentTarget.style.background = 'rgba(90, 150, 50, 1)';
+              e.currentTarget.style.background = '#1D4B24';
             }}
             onMouseLeave={e => {
               e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-              e.currentTarget.style.background = 'rgba(90, 150, 50, 0.9)';
+              e.currentTarget.style.background = '#2C6B37';
             }}
           >
             <ChevronRight size={isMobile ? 18 : 24} />
@@ -231,7 +231,7 @@ export default function Customers() {
                 width: activeIndex === i ? '24px' : '10px',
                 height: '10px',
                 borderRadius: '5px',
-                background: activeIndex === i ? 'rgba(90, 150, 50, 1)' : 'rgba(90, 150, 50, 0.4)',
+                background: activeIndex === i ? '#2C6B37' : 'rgba(44, 107, 55, 0.2)',
                 border: 'none',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
@@ -244,24 +244,42 @@ export default function Customers() {
         {/* Domestic vs Export */}
         <div className="responsive-grid-2" style={{ marginTop: '4rem' }}>
           {[
-            { icon: MapPin, title: 'Domestic Supply', desc: 'Serving retail chains, wholesalers, hotels, and households across Tamil Nadu and Puducherry.', color: '#D4A017' },
-            { icon: Plane, title: 'International Export', desc: 'Meeting strict global food safety standards. VIP Krishna brand recognized across international markets.', color: '#2A9D8F' },
+            { icon: MapPin, title: 'Domestic Supply', desc: 'Serving retail chains, wholesalers, hotels, and households across Tamil Nadu and Puducherry.', color: '#C99414' },
+            { icon: Plane, title: 'International Export', desc: 'Meeting strict global food safety standards. VIP Krishna brand recognized across international markets.', color: '#1F7A6E' },
           ].map((item, i) => (
-            <div key={i} style={{
-              padding: '2.5rem',
-              background: 'rgba(144, 200, 100, 0.75)',
-              border: '2px solid rgba(90, 150, 50, 0.9)',
-              borderRadius: 24,
-              transition: 'all 0.3s',
-            }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(144, 200, 100, 0.9)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'rgba(144, 200, 100, 0.75)'}
+            <div key={i}
+              onMouseEnter={() => setHoveredCard(i)}
+              onMouseLeave={() => setHoveredCard(null)}
+              style={{
+                padding: '2.5rem',
+                background: hoveredCard === i ? 'linear-gradient(135deg, #2C6B37 0%, #0066CC 100%)' : '#FFFFFF',
+                border: hoveredCard === i ? '3px solid transparent' : '3px solid #5C3D24',
+                borderRadius: 24,
+                transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+                boxShadow: hoveredCard === i ? '0 15px 40px rgba(0, 102, 204, 0.2)' : '0 8px 24px rgba(0,0,0,0.02)',
+                transform: hoveredCard === i ? 'translateY(-6px)' : 'translateY(0)',
+                cursor: 'pointer',
+              }}
             >
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{React.createElement(item.icon, { size: 40, color: item.color })}</div>
-              <h3 style={{ fontFamily: "'Cinzel', serif", fontSize: '1.5rem', color: '#1A1A0E', marginBottom: '0.8rem', fontWeight: 700 }}>
+              <div style={{ fontSize: '3rem', marginBottom: '1rem', transition: 'all 0.3s' }}>
+                {React.createElement(item.icon, { size: 40, color: hoveredCard === i ? '#FFFFFF' : item.color })}
+              </div>
+              <h3 style={{
+                fontFamily: "'Cinzel', serif",
+                fontSize: '1.5rem',
+                color: hoveredCard === i ? '#FFFFFF' : '#1C231A',
+                marginBottom: '0.8rem',
+                fontWeight: 800,
+                transition: 'color 0.3s'
+              }}>
                 {item.title}
               </h3>
-              <p style={{ color: '#2D2D1F', lineHeight: 1.7, fontWeight: 700 }}>{item.desc}</p>
+              <p style={{
+                color: hoveredCard === i ? '#EAECEE' : '#5C6757',
+                lineHeight: 1.7,
+                fontWeight: 500,
+                transition: 'color 0.3s'
+              }}>{item.desc}</p>
             </div>
           ))}
         </div>

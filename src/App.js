@@ -98,7 +98,6 @@ export default function App() {
       {currentPage === 'home' ? (
         <>
           <Hero />
-          <PaddyHistory />
           <Stats />
           <Products />
           <Quality />

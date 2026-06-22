@@ -4,6 +4,11 @@ import { Wheat, Award, ShieldCheck, Truck, Users, Leaf, ArrowRight, User } from 
 import img1 from '../assets/about/Screenshot 2026-06-01 103900.png';
 import img2 from '../assets/about/Screenshot 2026-06-01 103911.png';
 import img3 from '../assets/about/Screenshot 2026-06-01 103933.png';
+import logoImg from '../assets/logo/SKRM_logo.png';
+import mainBgImg from '../assets/bg/Gemini_Generated_Image_vldgx7vldgx7vldg.png';
+import PaddyHistory from './PaddyHistory';
+import kumarapaImg from '../assets/about/kumarapa.png';
+import radhakrishnanImg from '../assets/about/radhakrishnan.png';
 
 const styles = {
   section: {
@@ -13,7 +18,7 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     background: 'transparent',
-    color: '#FFF8E7',
+    color: '#1C231A',
   },
   container: {
     width: '100%',
@@ -27,16 +32,16 @@ const styles = {
   title: {
     fontFamily: "'Playfair Display', serif",
     fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-    color: '#000000ff',
-    textShadow: '0 4px 12px rgba(0,0,0,0.5)',
+    color: '#1C231A',
     marginBottom: '1rem',
+    fontWeight: 900,
   },
   subtitle: {
     fontSize: '1rem',
     textTransform: 'uppercase',
     letterSpacing: '0.4em',
-    color: 'rgba(255, 248, 231, 0.6)',
-    fontWeight: 600,
+    color: '#5C6757',
+    fontWeight: 700,
   },
   row: {
     display: 'flex',
@@ -50,15 +55,15 @@ const styles = {
     flex: '1 1 500px',
   },
   contentCard: {
-    background: 'rgba(26, 26, 14, 0.6)',
-    backdropFilter: 'blur(16px)',
-    border: '1px solid rgba(212, 160, 23, 0.18)',
+    background: '#FFFFFF',
+    border: '3px solid #5C3D24',
     borderRadius: '24px',
     padding: '2.5rem',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+    boxShadow: '0 10px 40px rgba(0, 102, 204, 0.04)',
     display: 'flex',
     flexDirection: 'column',
     gap: '1.25rem',
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
   },
   imageCol: {
     flex: '1 1 450px',
@@ -71,9 +76,9 @@ const styles = {
     maxWidth: '500px',
     borderRadius: '24px',
     overflow: 'hidden',
-    border: '2px solid rgba(212, 160, 23, 0.25)',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
-    background: 'rgba(26, 26, 14, 0.5)',
+    border: '1px solid rgba(44, 107, 55, 0.15)',
+    boxShadow: '0 12px 35px rgba(0, 0, 0, 0.05)',
+    background: '#FFFFFF',
     padding: '8px',
   },
   image: {
@@ -85,9 +90,9 @@ const styles = {
   },
   sectionTag: {
     fontSize: '0.85rem',
-    fontWeight: 700,
+    fontWeight: 800,
     textTransform: 'uppercase',
-    color: '#000000ff',
+    color: '#2C6B37',
     letterSpacing: '0.2em',
     display: 'flex',
     alignItems: 'center',
@@ -96,13 +101,14 @@ const styles = {
   sectionTitle: {
     fontFamily: "'Playfair Display', serif",
     fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)',
-    color: '#FFF8E7',
+    color: '#1C231A',
     lineHeight: 1.25,
+    fontWeight: 800,
   },
   sectionDesc: {
     fontSize: '1.05rem',
     lineHeight: 1.8,
-    color: 'rgba(255, 248, 231, 0.8)',
+    color: '#5C6757',
   },
   bulletsList: {
     listStyle: 'none',
@@ -115,10 +121,10 @@ const styles = {
     alignItems: 'center',
     gap: '12px',
     fontSize: '1rem',
-    color: 'rgba(255, 248, 231, 0.85)',
+    color: '#3A4435',
   },
   bulletIcon: {
-    color: '#D4A017',
+    color: '#2C6B37',
     flexShrink: 0,
   },
   leaderGrid: {
@@ -129,9 +135,8 @@ const styles = {
     marginTop: '2rem',
   },
   leaderCard: {
-    background: 'rgba(26, 26, 14, 0.65)',
-    backdropFilter: 'blur(16px)',
-    border: '1px solid rgba(212, 160, 23, 0.2)',
+    background: '#FFFFFF',
+    border: '3px solid #5C3D24',
     borderRadius: '24px',
     padding: '3rem 2rem',
     width: '100%',
@@ -140,32 +145,35 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
-    transition: 'all 0.3s ease',
+    boxShadow: '0 10px 30px rgba(0, 102, 204, 0.04)',
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
   },
   leaderAvatar: {
     width: '100px',
     height: '100px',
     borderRadius: '50%',
-    background: 'linear-gradient(135deg, #D4A017, #E8623A)',
+    overflow: 'hidden',
+    border: '3px solid #2C6B37',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: '1.5rem',
-    boxShadow: '0 8px 20px rgba(212, 160, 23, 0.3)',
+    boxShadow: '0 8px 20px rgba(44, 107, 55, 0.15)',
+    background: '#FFFFFF',
   },
   leaderName: {
     fontFamily: "'Playfair Display', serif",
     fontSize: '1.4rem',
-    color: '#FFF8E7',
+    color: '#1C231A',
     marginBottom: '0.5rem',
+    fontWeight: 800,
   },
   leaderRole: {
     fontSize: '0.85rem',
     textTransform: 'uppercase',
     letterSpacing: '0.15em',
-    color: '#D4A017',
-    fontWeight: 700,
+    color: '#2C6B37',
+    fontWeight: 800,
   },
 };
 
@@ -173,30 +181,51 @@ export default function About() {
   const ref = useRef();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.querySelectorAll('[data-reveal]').forEach((el, i) => {
-            el.style.transitionDelay = `${i * 0.15}s`;
-            el.classList.add('revealed');
-          });
-        }
-      }),
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+    if (ref.current) {
+      ref.current.querySelectorAll('[data-reveal]').forEach((el, i) => {
+        el.style.transitionDelay = `${i * 0.1}s`;
+        el.classList.add('revealed');
+      });
+    }
   }, []);
 
   return (
-    <section id="about" ref={ref} style={styles.section}>
+    <div ref={ref}>
+      <section id="about" style={{ ...styles.section, paddingBottom: '2rem' }}>
       <style>{`
         [data-reveal] { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
         [data-reveal].revealed { opacity: 1; transform: translateY(0); }
         .leader-card-hover:hover {
+          transform: translateY(-10px) scale(1.03) !important;
+          background: linear-gradient(135deg, #2C6B37 0%, #0066CC 100%) !important;
+          border-color: transparent !important;
+          box-shadow: 0 15px 40px rgba(0, 102, 204, 0.25) !important;
+        }
+        .leader-card-hover:hover h3 {
+          color: #FFFFFF !important;
+        }
+        .leader-card-hover:hover p {
+          color: #EAECEE !important;
+        }
+        .about-card-hover:hover {
           transform: translateY(-8px);
-          border-color: rgba(212, 160, 23, 0.5) !important;
-          box-shadow: 0 15px 40px rgba(212, 160, 23, 0.15) !important;
+          background: linear-gradient(135deg, #2C6B37 0%, #0066CC 100%) !important;
+          border-color: transparent !important;
+          box-shadow: 0 15px 40px rgba(0, 102, 204, 0.25) !important;
+        }
+        .about-card-hover:hover h2,
+        .about-card-hover:hover h3,
+        .about-card-hover:hover p,
+        .about-card-hover:hover span,
+        .about-card-hover:hover li,
+        .about-card-hover:hover div {
+          color: #FFFFFF !important;
+          transition: color 0.3s ease;
+        }
+        .about-card-hover:hover svg {
+          stroke: #FFFFFF !important;
+          color: #FFFFFF !important;
+          transition: all 0.3s ease;
         }
       `}</style>
 
@@ -207,10 +236,84 @@ export default function About() {
           <div style={styles.subtitle}>Powering Taste & Tradition Since 1960</div>
         </div>
 
+        {/* Heritage Image Showcase (with Logo & Brand Name) */}
+        <div data-reveal style={{
+          background: '#FFFFFF',
+          border: '3px solid #5C3D24',
+          borderRadius: '24px',
+          padding: '2.5rem',
+          marginBottom: '5rem',
+          boxShadow: '0 12px 40px rgba(0, 0, 0, 0.02)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '2rem',
+        }}>
+          {/* Logo + Brand Name Header */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1.5rem',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            textAlign: 'center',
+          }}>
+            <img 
+              src={logoImg} 
+              alt="Sri Krishna Logo" 
+              style={{
+                height: '75px',
+                width: '75px',
+                borderRadius: '50%',
+                border: '2.5px solid #2C6B37',
+                boxShadow: '0 4px 15px rgba(44, 107, 55, 0.15)',
+              }}
+            />
+            <div style={{ textAlign: 'left' }}>
+              <h2 style={{
+                fontFamily: "'Cinzel', serif",
+                fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
+                color: '#1C231A',
+                margin: 0,
+                fontWeight: 900,
+              }}>Sri Krishna Modern Rice Mill</h2>
+              <p style={{
+                fontSize: '0.85rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.2em',
+                color: '#2C6B37',
+                fontWeight: 800,
+                margin: '2px 0 0 0',
+              }}>Purity & Agricultural Heritage Since 1960</p>
+            </div>
+          </div>
+
+          {/* Large showcase of the picture */}
+          <div style={{
+            width: '100%',
+            maxHeight: '480px',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            border: '1px solid rgba(44, 107, 55, 0.15)',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.05)',
+          }}>
+            <img 
+              src={mainBgImg} 
+              alt="Sri Krishna Modern Rice Mill Heritage Showcase" 
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+                objectFit: 'cover',
+              }}
+            />
+          </div>
+        </div>
+
         {/* Section 1: Our Mission */}
         <div style={styles.row}>
           <div data-reveal style={styles.textCol}>
-            <div style={styles.contentCard}>
+            <div className="about-card-hover" style={styles.contentCard}>
               <div style={styles.sectionTag}>
                 <Wheat size={18} /> Our Mission
               </div>
@@ -235,7 +338,7 @@ export default function About() {
             </div>
           </div>
           <div data-reveal style={styles.textCol}>
-            <div style={styles.contentCard}>
+            <div className="about-card-hover" style={styles.contentCard}>
               <div style={styles.sectionTag}>
                 <Leaf size={18} /> Our Vision
               </div>
@@ -250,7 +353,7 @@ export default function About() {
         {/* Section 3: Why Choose Us */}
         <div style={styles.row}>
           <div data-reveal style={styles.textCol}>
-            <div style={styles.contentCard}>
+            <div className="about-card-hover" style={styles.contentCard}>
               <div style={styles.sectionTag}>
                 <Award size={18} /> Quality & Trust
               </div>
@@ -279,34 +382,38 @@ export default function About() {
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        {/* Section 4: Leadership */}
-        <div data-reveal style={{ textAlign: 'center', marginTop: '4rem' }}>
-          <div style={styles.sectionTag}>
-            <Users size={18} style={{ margin: '0 auto 0.5rem auto' }} /> Leadership
-          </div>
-          <h2 style={{ ...styles.sectionTitle, marginBottom: '3rem' }}>The Visionaries Behind Sri Krishna</h2>
+      {/* Journey Section */}
+      <PaddyHistory />
 
-          <div style={styles.leaderGrid}>
-            <div className="leader-card-hover" style={styles.leaderCard}>
-              <div style={styles.leaderAvatar}>
-                <User size={48} color="#FFF8E7" />
+      {/* Section 4: Leadership */}
+      <section id="leadership" style={{ ...styles.section, paddingTop: '5rem', minHeight: 'auto', background: 'transparent' }}>
+        <div style={styles.container}>
+          <div data-reveal style={{ textAlign: 'center' }}>
+            <h2 style={{ ...styles.sectionTitle, marginBottom: '3rem' }}>The Visionaries Behind Sri Krishna</h2>
+
+            <div style={styles.leaderGrid}>
+              <div className="leader-card-hover" style={styles.leaderCard}>
+                <div style={styles.leaderAvatar}>
+                  <img src={kumarapaImg} alt="Mr. Kumarapa" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <h3 style={styles.leaderName}>Mr. Kumarapa</h3>
+                <p style={styles.leaderRole}>Founder & Pioneer</p>
               </div>
-              <h3 style={styles.leaderName}>Mr. Kumarapa</h3>
-              <p style={styles.leaderRole}>Founder & Pioneer</p>
-            </div>
 
-            <div className="leader-card-hover" style={styles.leaderCard}>
-              <div style={styles.leaderAvatar}>
-                <User size={48} color="#FFF8E7" />
+              <div className="leader-card-hover" style={styles.leaderCard}>
+                <div style={styles.leaderAvatar}>
+                  <img src={radhakrishnanImg} alt="Mr. K. Radhakrishnan" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <h3 style={styles.leaderName}>Mr. K. Radhakrishnan</h3>
+                <p style={styles.leaderRole}>Managing Director</p>
               </div>
-              <h3 style={styles.leaderName}>Mr. K. Radhakrishnan</h3>
-              <p style={styles.leaderRole}>Managing Director</p>
             </div>
           </div>
         </div>
-
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

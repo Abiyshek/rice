@@ -1,17 +1,17 @@
 :root {
-  --gold: #D4A017;
-  --deep-gold: #B8860B;
-  --rice-white: #FFF8E7;
-  --paddy-green: #4A7C3F;
-  --deep-green: #2D5A1B;
-  --leaf-green: #7DB85C;
-  --coral: #E8623A;
-  --teal: #2A9D8F;
-  --warm-orange: #F4A261;
-  --dark-bg: #1A1A0E;
-  --card-bg: rgba(144, 238, 144, 0.18);
-  --text-light: #FFF8E7;
-  --text-muted: rgba(255,248,231,0.65);
+  --gold: #C99414;
+  --deep-gold: #A0740E;
+  --rice-white: #FFFFFF;
+  --paddy-green: #2C6B37;
+  --deep-green: #1D4B24;
+  --leaf-green: #4B9B5E;
+  --coral: #D94D2B;
+  --teal: #1F7A6E;
+  --warm-orange: #CE5E0E;
+  --dark-bg: #FFE5D9;
+  --card-bg: #FFFFFF;
+  --text-light: #1C231A;
+  --text-muted: #5C6757;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,10 +20,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Raleway', sans-serif;
-  background: linear-gradient(rgba(26, 26, 14, 0.2), rgba(26, 26, 14, 0.2)), url('./assets/bg/Gemini_Generated_Image_vldgx7vldgx7vldg.png');
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
+  background-color: var(--dark-bg);
   color: var(--text-light);
   overflow-x: hidden;
 }

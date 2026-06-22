@@ -83,32 +83,49 @@ export default function Testimonials() {
     }}>
       <style>{`
         .review-card {
-          background: rgba(26, 26, 14, 0.65) !important;
-          backdrop-filter: blur(16px);
-          border: 1px solid rgba(212, 160, 23, 0.18) !important;
+          background: #FFFFFF !important;
+          border: 3px solid #5C3D24 !important;
           border-radius: 24px;
           padding: 2.5rem;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 8px 30px rgba(0, 102, 204, 0.04);
           transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
           position: relative;
         }
         .review-card:hover {
-          transform: translateY(-8px);
-          border-color: rgba(212, 160, 23, 0.5) !important;
-          box-shadow: 0 15px 40px rgba(212, 160, 23, 0.15) !important;
+          transform: translateY(-8px) scale(1.02);
+          background: linear-gradient(135deg, #2C6B37 0%, #0066CC 100%) !important;
+          border-color: transparent !important;
+          box-shadow: 0 15px 40px rgba(0, 102, 204, 0.2) !important;
+        }
+        .review-card:hover h4,
+        .review-card:hover p,
+        .review-card:hover span,
+        .review-card:hover div {
+          color: #FFFFFF !important;
+          transition: color 0.3s ease;
+        }
+        .review-card:hover svg {
+          stroke: #FFFFFF !important;
+          color: #FFFFFF !important;
+          transition: all 0.3s ease;
         }
         .google-badge {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          background: rgba(26, 26, 14, 0.8);
-          border: 1px solid rgba(212, 160, 23, 0.25);
+          background: #FAF9F6;
+          border: 1px solid rgba(44, 107, 55, 0.15);
           border-radius: 20px;
           padding: 6px 12px;
           font-size: 0.75rem;
-          font-weight: 700;
-          color: #D4A017;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+          font-weight: 800;
+          color: #2C6B37;
+          transition: all 0.3s ease;
+        }
+        .review-card:hover .google-badge {
+          background: rgba(255, 255, 255, 0.2) !important;
+          border-color: #FFFFFF !important;
+          color: #FFFFFF !important;
         }
       `}</style>
 
@@ -120,23 +137,22 @@ export default function Testimonials() {
               <div style={{
                 fontSize: '0.9rem',
                 letterSpacing: '0.4em',
-                color: '#000000',
+                color: '#2C6B37',
                 textTransform: 'uppercase',
                 marginBottom: 12,
-                fontWeight: 700,
+                fontWeight: 800,
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
                 justifyContent: 'center'
               }}>
-                <MessageSquare size={16} color="#D4A017" /> What People Say
+                <MessageSquare size={16} color="#2C6B37" /> What People Say
               </div>
               <h2 style={{
                 fontFamily: "'Cinzel', serif",
                 fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                color: '#FFF8E7',
+                color: '#1C231A',
                 marginBottom: '1rem',
-                textShadow: '0 4px 10px rgba(0,0,0,0.5)'
               }}>
                 Google Customer Reviews
               </h2>
@@ -152,37 +168,35 @@ export default function Testimonials() {
               <div style={{
                 fontSize: '0.9rem',
                 letterSpacing: '0.4em',
-                color: '#000000',
+                color: '#2C6B37',
                 textTransform: 'uppercase',
                 marginBottom: 12,
-                fontWeight: 700,
+                fontWeight: 800,
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
                 justifyContent: 'center'
               }}>
-                <MessageSquare size={16} color="#D4A017" /> What People Say
+                <MessageSquare size={16} color="#2C6B37" /> What People Say
               </div>
               
               <h2 style={{
                 fontFamily: "'Cinzel', serif",
                 fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                color: '#FFF8E7',
-                marginBottom: '1rem',
-                textShadow: '0 4px 10px rgba(0,0,0,0.5)'
+                color: '#1C231A',
+                marginBottom: '1.5rem',
               }}>
                 Google Customer Reviews
               </h2>
               
               <div style={{
-                background: 'rgba(26, 26, 14, 0.65)',
-                backdropFilter: 'blur(16px)',
-                border: '1px solid rgba(212, 160, 23, 0.25)',
+                background: '#FFFFFF',
+                border: '1px solid rgba(44, 107, 55, 0.15)',
                 borderRadius: '50px',
                 padding: '0.75rem 2rem',
                 maxWidth: '650px',
                 margin: '0 auto 2rem auto',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                boxShadow: '0 8px 30px rgba(44, 107, 55, 0.04)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -190,15 +204,15 @@ export default function Testimonials() {
                 flexWrap: 'wrap'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#D4A017' }}>{googleRating.toFixed(1)}</span>
+                  <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#C99414' }}>{googleRating.toFixed(1)}</span>
                   <div style={{ display: 'flex', gap: '2px' }}>
                     {[1, 2, 3, 4, 5].map((s) => (
-                      <Star key={s} size={16} fill="#D4A017" color="#D4A017" />
+                      <Star key={s} size={16} fill="#C99414" color="#C99414" />
                     ))}
                   </div>
                 </div>
-                <div style={{ width: '1px', height: '20px', background: 'rgba(255,248,231,0.2)' }} />
-                <p style={{ color: '#FFF8E7', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
+                <div style={{ width: '1px', height: '20px', background: 'rgba(44, 107, 55, 0.15)' }} />
+                <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
                   Based on {totalRatings} verified Google Business ratings
                 </p>
               </div>
@@ -218,18 +232,18 @@ export default function Testimonials() {
                     <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                       <div style={{
                         width: '44px', height: '44px', borderRadius: '50%',
-                        background: 'linear-gradient(135deg, #D4A017, #E8623A)',
+                        background: 'linear-gradient(135deg, #2C6B37, #4B9B5E)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: '#FFF8E7', fontWeight: 700, fontSize: '1.1rem',
-                        boxShadow: '0 4px 10px rgba(0,0,0,0.15)'
+                        color: '#FFFFFF', fontWeight: 700, fontSize: '1.1rem',
+                        boxShadow: '0 4px 10px rgba(44, 107, 55, 0.15)'
                       }}>
                         {r.author_name ? r.author_name.charAt(0) : 'G'}
                       </div>
                       <div>
-                        <h4 style={{ fontFamily: "'Cinzel', serif", fontSize: '1rem', color: '#FFF8E7', margin: 0 }}>
+                        <h4 style={{ fontFamily: "'Raleway', sans-serif", fontWeight: 800, fontSize: '1rem', color: '#1C231A', margin: 0 }}>
                           {r.author_name}
                         </h4>
-                        <span style={{ fontSize: '0.75rem', color: 'rgba(255, 248, 231, 0.55)', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
+                        <span style={{ fontSize: '0.75rem', color: '#5C6757', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
                           <Calendar size={12} /> {r.relative_time_description || 'Recently'}
                         </span>
                       </div>
@@ -245,8 +259,8 @@ export default function Testimonials() {
                       <Star
                         key={starIdx}
                         size={16}
-                        fill={starIdx <= r.rating ? '#D4A017' : 'none'}
-                        color={starIdx <= r.rating ? '#D4A017' : 'rgba(255,248,231,0.2)'}
+                        fill={starIdx <= r.rating ? '#C99414' : 'none'}
+                        color={starIdx <= r.rating ? '#C99414' : 'rgba(44, 107, 55, 0.15)'}
                       />
                     ))}
                   </div>
@@ -255,7 +269,7 @@ export default function Testimonials() {
                   <p style={{
                     fontSize: '0.95rem',
                     lineHeight: 1.7,
-                    color: 'rgba(255, 248, 231, 0.85)',
+                    color: '#5C6757',
                     fontStyle: 'italic',
                     margin: 0
                   }}>
@@ -270,9 +284,9 @@ export default function Testimonials() {
                       alignItems: 'center',
                       gap: '6px',
                       fontSize: '0.7rem',
-                      fontWeight: 700,
+                      fontWeight: 800,
                       textTransform: 'uppercase',
-                      color: '#D4A017',
+                      color: '#2C6B37',
                       letterSpacing: '0.1em'
                     }}>
                       <Award size={12} /> {r.badge}
@@ -289,16 +303,16 @@ export default function Testimonials() {
                 onMouseEnter={() => setIsHoveredBtn(true)}
                 onMouseLeave={() => setIsHoveredBtn(false)}
                 style={{
-                  background: isHoveredBtn ? 'linear-gradient(135deg, #E8623A, #D4A017)' : 'linear-gradient(135deg, #D4A017, #E8623A)',
-                  color: '#1A1A0E',
-                  padding: '1.25rem 2.5rem',
+                  background: 'linear-gradient(135deg, #2C6B37, #4B9B5E)',
+                  color: '#FFFFFF',
+                  padding: '1.1rem 2.4rem',
                   borderRadius: '50px',
                   border: 'none',
                   fontFamily: "'Raleway', sans-serif",
                   fontWeight: 800,
-                  fontSize: '1rem',
+                  fontSize: '0.95rem',
                   cursor: 'pointer',
-                  boxShadow: '0 8px 30px rgba(212,160,23,0.4)',
+                  boxShadow: '0 8px 25px rgba(44, 107, 55, 0.25)',
                   transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
                   display: 'flex',
                   alignItems: 'center',
@@ -307,7 +321,7 @@ export default function Testimonials() {
                 }}
               >
                 <span>Write a Review on Google</span>
-                <ExternalLink size={18} />
+                <ExternalLink size={16} />
               </button>
             </div>
           </div>
