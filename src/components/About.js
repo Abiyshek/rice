@@ -400,7 +400,6 @@ export default function About() {
                   <img src={kumarapaImg} alt="Mr. Kumarapa" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <h3 style={styles.leaderName}>Mr. Kumarapa</h3>
-                <p style={styles.leaderRole}>Founder & Pioneer</p>
               </div>
 
               <div className="leader-card-hover" style={styles.leaderCard}>
@@ -408,7 +407,6 @@ export default function About() {
                   <img src={radhakrishnanImg} alt="Mr. K. Radhakrishnan" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <h3 style={styles.leaderName}>Mr. K. Radhakrishnan</h3>
-                <p style={styles.leaderRole}>Managing Director</p>
               </div>
             </div>
           </div>
