@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Wheat, Droplets, Cog, Microscope, Check, Package, ArrowRight } from 'lucide-react';
+import ScrollReveal from './ScrollReveal';
 
 import sourcingBg from '../assets/quality/sourcing.png';
 import soakingBg from '../assets/quality/soaking_boiling.png';
@@ -53,11 +54,6 @@ const styles = {
     marginBottom: 12,
     fontWeight: 800,
   },
-  desc: {
-    color: '#5C6757',
-    maxWidth: 500,
-    margin: '0 auto',
-  },
   chainWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -81,6 +77,7 @@ const styles = {
     textAlign: 'center',
     gap: '0.4rem',
     boxShadow: '0 8px 30px rgba(0, 102, 204, 0.04)',
+    position: 'relative',
   },
   activeCard: {
     background: 'linear-gradient(135deg, #2C6B37 0%, #0066CC 100%)',
@@ -126,6 +123,8 @@ const styles = {
     border: '3px solid #5C3D24',
     borderRadius: 20,
     boxShadow: '0 10px 40px rgba(0,0,0,0.02)',
+    position: 'relative',
+    overflow: 'hidden',
   },
 };
 
@@ -148,7 +147,7 @@ export default function Quality() {
           style={{
             position: 'absolute',
             inset: 0,
-            backgroundImage: `linear-gradient(rgba(250, 249, 246, 0.65), rgba(250, 249, 246, 0.65)), url(${s.bg})`,
+            backgroundImage: `linear-gradient(rgba(250, 249, 246, 0.70), rgba(250, 249, 246, 0.70)), url(${s.bg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',
@@ -166,77 +165,107 @@ export default function Quality() {
             margin: 0.5rem 0;
           }
         }
+        @keyframes rippleGlow {
+          0% { box-shadow: 0 0 0 0 rgba(44, 107, 55, 0.3); }
+          70% { box-shadow: 0 0 0 15px rgba(44, 107, 55, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(44, 107, 55, 0); }
+        }
+        .quality-active-ripple {
+          animation: rippleGlow 2s ease-out infinite;
+        }
       `}</style>
 
       <div style={styles.container}>
-        <div style={styles.headingArea}>
-          <div style={styles.subtitle}>Our Process</div>
-          <h1 style={styles.title}>How We Ensure Quality</h1>
-          <div style={{
-            background: '#FFFFFF',
-            border: '1px solid rgba(44, 107, 55, 0.15)',
-            borderRadius: '50px',
-            padding: '0.75rem 2rem',
-            maxWidth: '650px',
-            margin: '0 auto',
-            boxShadow: '0 8px 30px rgba(44, 107, 55, 0.04)',
-          }}>
-            <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
-              Every grain carries our family's reputation. Here's how we protect it stage by stage.
+        <ScrollReveal direction="up">
+          <div style={styles.headingArea}>
+            <div style={styles.subtitle}>Our Process</div>
+            <h1 className="gold-shimmer-text" style={styles.title}>How We Ensure Quality</h1>
+            <div style={{
+              background: '#FFFFFF',
+              border: '1px solid rgba(44, 107, 55, 0.15)',
+              borderRadius: '50px',
+              padding: '0.75rem 2rem',
+              maxWidth: '650px',
+              margin: '0 auto',
+              boxShadow: '0 8px 30px rgba(44, 107, 55, 0.04)',
+            }}>
+              <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
+                Every grain carries our family's reputation. Here's how we protect it stage by stage.
+              </p>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal direction="scale" delay={0.2}>
+          <div style={styles.chainWrapper}>
+            {steps.map((s, i) => (
+              <React.Fragment key={i}>
+                <div
+                  onClick={() => setActiveStep(i)}
+                  className={activeStep === i ? 'quality-active-ripple' : ''}
+                  style={{
+                    ...styles.card,
+                    ...(activeStep === i ? styles.activeCard : {})
+                  }}
+                >
+                  <div style={styles.cardHeader}>
+                    <div className={activeStep === i ? '' : 'icon-bounce'}>
+                      {React.createElement(s.icon, { size: 26, color: activeStep === i ? '#FFFFFF' : '#2C6B37' })}
+                    </div>
+                    <span style={{
+                      ...styles.cardNum,
+                      color: activeStep === i ? '#F1C40F' : '#C99414'
+                    }}>{s.num}</span>
+                  </div>
+                  <h3 style={{
+                    ...styles.cardTitle,
+                    color: activeStep === i ? '#FFFFFF' : '#1C231A'
+                  }}>{s.title}</h3>
+                  <p style={{
+                    ...styles.cardDesc,
+                    color: activeStep === i ? '#EAECEE' : '#5C6757'
+                  }}>{s.desc}</p>
+                </div>
+
+                {i < steps.length - 1 && (
+                  <div className="chain-arrow" style={styles.arrowContainer}>
+                    <ArrowRight
+                      size={24}
+                      color={activeStep === i ? '#0066CC' : 'rgba(0, 102, 204, 0.25)'}
+                      style={{
+                        transform: activeStep === i ? 'scale(1.2)' : 'scale(1)',
+                        transition: 'all 0.4s ease'
+                      }}
+                    />
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </ScrollReveal>
+
+        {/* Key fact with decorative quotation marks */}
+        <ScrollReveal direction="up" delay={0.3}>
+          <div style={styles.factBox}>
+            {/* Decorative quotation SVG */}
+            <div style={{ position: 'absolute', top: 12, left: 20, opacity: 0.06, pointerEvents: 'none' }}>
+              <svg width="60" height="50" viewBox="0 0 60 50" fill="#2C6B37">
+                <path d="M0 35 Q0 50 15 50 L25 50 L25 30 L10 30 Q10 20 20 15 L15 8 Q0 15 0 35Z" />
+                <path d="M30 35 Q30 50 45 50 L55 50 L55 30 L40 30 Q40 20 50 15 L45 8 Q30 15 30 35Z" />
+              </svg>
+            </div>
+            <div style={{ position: 'absolute', bottom: 12, right: 20, opacity: 0.06, pointerEvents: 'none', transform: 'rotate(180deg)' }}>
+              <svg width="60" height="50" viewBox="0 0 60 50" fill="#C99414">
+                <path d="M0 35 Q0 50 15 50 L25 50 L25 30 L10 30 Q10 20 20 15 L15 8 Q0 15 0 35Z" />
+                <path d="M30 35 Q30 50 45 50 L55 50 L55 30 L40 30 Q40 20 50 15 L45 8 Q30 15 30 35Z" />
+              </svg>
+            </div>
+            <p style={{ fontSize: '1.15rem', color: '#1C231A', fontStyle: 'italic', fontFamily: "'Cinzel', serif", position: 'relative', zIndex: 1 }}>
+              "Knowledge transferred from our ancestors for determining rice quality — 
+              <span style={{ color: '#2C6B37', fontWeight: 'bold' }}> three generations of instinct, backed by modern precision."</span>
             </p>
           </div>
-        </div>
-
-        <div style={styles.chainWrapper}>
-          {steps.map((s, i) => (
-            <React.Fragment key={i}>
-              <div
-                onClick={() => setActiveStep(i)}
-                style={{
-                  ...styles.card,
-                  ...(activeStep === i ? styles.activeCard : {})
-                }}
-              >
-                <div style={styles.cardHeader}>
-                  {React.createElement(s.icon, { size: 26, color: activeStep === i ? '#FFFFFF' : '#2C6B37' })}
-                  <span style={{
-                    ...styles.cardNum,
-                    color: activeStep === i ? '#F1C40F' : '#C99414'
-                  }}>{s.num}</span>
-                </div>
-                <h3 style={{
-                  ...styles.cardTitle,
-                  color: activeStep === i ? '#FFFFFF' : '#1C231A'
-                }}>{s.title}</h3>
-                <p style={{
-                  ...styles.cardDesc,
-                  color: activeStep === i ? '#EAECEE' : '#5C6757'
-                }}>{s.desc}</p>
-              </div>
-
-              {i < steps.length - 1 && (
-                <div className="chain-arrow" style={styles.arrowContainer}>
-                  <ArrowRight
-                    size={24}
-                    color={activeStep === i ? '#0066CC' : 'rgba(0, 102, 204, 0.25)'}
-                    style={{
-                      transform: activeStep === i ? 'scale(1.2)' : 'scale(1)',
-                      transition: 'all 0.4s ease'
-                    }}
-                  />
-                </div>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-
-        {/* Key fact */}
-        <div style={styles.factBox}>
-          <p style={{ fontSize: '1.15rem', color: '#1C231A', fontStyle: 'italic', fontFamily: "'Cinzel', serif" }}>
-            "Knowledge transferred from our ancestors for determining rice quality — 
-            <span style={{ color: '#2C6B37', fontWeight: 'bold' }}> three generations of instinct, backed by modern precision."</span>
-          </p>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

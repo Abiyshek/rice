@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import ScrollReveal from './ScrollReveal';
 
 const FacebookIcon = (props) => (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" {...props}>
@@ -13,48 +14,50 @@ const LinkedinIcon = (props) => (
   </svg>
 );
 
-function ContactCard({ item }) {
+function ContactCard({ item, index }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <div 
-      onClick={item.onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        textAlign: 'center', padding: '1.8rem 1.2rem',
-        background: hovered ? 'linear-gradient(135deg, #2C6B37 0%, #0066CC 100%)' : '#FFFFFF',
-        border: hovered ? '3px solid transparent' : '3px solid #5C3D24',
-        borderRadius: 16,
-        transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
-        cursor: 'pointer',
-        boxShadow: hovered ? '0 15px 35px rgba(0, 102, 204, 0.18)' : '0 8px 24px rgba(0,0,0,0.02)',
-        transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
-      }}
-    >
-      <div style={{ fontSize: '1.5rem', marginBottom: 8, transition: 'all 0.3s' }}>
-        {React.createElement(item.icon, { size: 24, color: hovered ? '#FFFFFF' : '#2C6B37' })}
+    <ScrollReveal direction="up" delay={index * 0.1} duration={0.6}>
+      <div 
+        onClick={item.onClick}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        style={{
+          textAlign: 'center', padding: '1.8rem 1.2rem',
+          background: hovered ? 'linear-gradient(135deg, #2C6B37 0%, #0066CC 100%)' : '#FFFFFF',
+          border: hovered ? '3px solid transparent' : '3px solid #5C3D24',
+          borderRadius: 16,
+          transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+          cursor: 'pointer',
+          boxShadow: hovered ? '0 15px 35px rgba(0, 102, 204, 0.18)' : '0 8px 24px rgba(0,0,0,0.02)',
+          transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
+        }}
+      >
+        <div className={hovered ? '' : 'icon-bounce'} style={{ fontSize: '1.5rem', marginBottom: 8, transition: 'all 0.3s' }}>
+          {React.createElement(item.icon, { size: 24, color: hovered ? '#FFFFFF' : '#2C6B37' })}
+        </div>
+        <div style={{ 
+          fontSize: '0.75rem', 
+          letterSpacing: '0.15em', 
+          color: hovered ? '#EAECEE' : '#5C6757', 
+          marginBottom: 6, 
+          fontWeight: 700, 
+          textTransform: 'uppercase',
+          transition: 'color 0.3s'
+        }}>
+          {item.label}
+        </div>
+        <div style={{ 
+          fontSize: '0.88rem', 
+          color: hovered ? '#FFFFFF' : '#1C231A', 
+          fontWeight: 800, 
+          lineHeight: 1.5,
+          transition: 'color 0.3s'
+        }}>
+          {item.value}
+        </div>
       </div>
-      <div style={{ 
-        fontSize: '0.75rem', 
-        letterSpacing: '0.15em', 
-        color: hovered ? '#EAECEE' : '#5C6757', 
-        marginBottom: 6, 
-        fontWeight: 700, 
-        textTransform: 'uppercase',
-        transition: 'color 0.3s'
-      }}>
-        {item.label}
-      </div>
-      <div style={{ 
-        fontSize: '0.88rem', 
-        color: hovered ? '#FFFFFF' : '#1C231A', 
-        fontWeight: 800, 
-        lineHeight: 1.5,
-        transition: 'color 0.3s'
-      }}>
-        {item.value}
-      </div>
-    </div>
+    </ScrollReveal>
   );
 }
 
@@ -105,76 +108,81 @@ export default function Contact() {
 
   return (
     <section id="contact" style={{
-      background: 'transparent',
+      background: 'linear-gradient(135deg, #FAF8F5 0%, #FAF2E8 100%)',
       padding: '8rem 3rem', minHeight: 'auto',
     }}>
 
       <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '0.9rem', letterSpacing: '0.4em', color: '#2C6B37', textTransform: 'uppercase', marginBottom: 12, fontWeight: 800 }}>
-            Connect With Us
+        <ScrollReveal direction="up">
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '0.9rem', letterSpacing: '0.4em', color: '#C99414', textTransform: 'uppercase', marginBottom: 12, fontWeight: 800 }}>
+              Connect With Us
+            </div>
+            <h2 className="gold-shimmer-text" style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#1C231A', marginBottom: '1.5rem' }}>
+              Get a Quote
+            </h2>
+            <div style={{
+              background: '#FFFFFF',
+              border: '1px solid rgba(44, 107, 55, 0.15)',
+              borderRadius: '50px',
+              padding: '0.75rem 2rem',
+              maxWidth: '650px',
+              margin: '0 auto',
+              boxShadow: '0 8px 30px rgba(44, 107, 55, 0.04)',
+            }}>
+              <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
+                Bulk orders, export inquiries, or just a question — we'd love to hear from you.
+              </p>
+            </div>
           </div>
-          <h2 style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#1C231A', marginBottom: '1.5rem' }}>
-            Get a Quote
-          </h2>
-          <div style={{
-            background: '#FFFFFF',
-            border: '1px solid rgba(44, 107, 55, 0.15)',
-            borderRadius: '50px',
-            padding: '0.75rem 2rem',
-            maxWidth: '650px',
-            margin: '0 auto',
-            boxShadow: '0 8px 30px rgba(44, 107, 55, 0.04)',
-          }}>
-            <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
-              Bulk orders, export inquiries, or just a question — we'd love to hear from you.
-            </p>
-          </div>
-        </div>
+        </ScrollReveal>
 
         {/* Contact info */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.2rem' }}>
           {contactDetails.map((c, i) => (
-            <ContactCard key={i} item={c} />
+            <ContactCard key={i} item={c} index={i} />
           ))}
         </div>
 
         {/* Social channels */}
         <div className="responsive-grid-2">
           {socials.map((s, i) => (
-            <ContactCard key={i} item={s} />
+            <ContactCard key={i} item={s} index={i + 3} />
           ))}
         </div>
 
         {/* Feedback & Requirement CTA Button */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
-          <button
-            onClick={() => window.open('https://forms.gle/hYcCQCLbAZouTpTX7', '_blank')}
-            style={{
-              background: 'linear-gradient(135deg, #2C6B37, #4B9B5E)',
-              color: '#FFFFFF',
-              padding: '1.25rem 3.5rem',
-              borderRadius: '50px',
-              border: 'none',
-              fontFamily: "'Raleway', sans-serif",
-              fontWeight: 800,
-              fontSize: '1rem',
-              cursor: 'pointer',
-              boxShadow: '0 8px 25px rgba(44, 107, 55, 0.25)',
-              transition: 'all 0.3s ease',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-3px)';
-              e.currentTarget.style.boxShadow = '0 12px 30px rgba(44, 107, 55, 0.35)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 8px 25px rgba(44, 107, 55, 0.25)';
-            }}
-          >
-            Submit Requirements & Feedback
-          </button>
-        </div>
+        <ScrollReveal direction="up" delay={0.2}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+            <button
+              onClick={() => window.open('https://forms.gle/hYcCQCLbAZouTpTX7', '_blank')}
+              className="glow-pulse-btn"
+              style={{
+                background: 'linear-gradient(135deg, #2C6B37, #4B9B5E)',
+                color: '#FFFFFF',
+                padding: '1.25rem 3.5rem',
+                borderRadius: '50px',
+                border: 'none',
+                fontFamily: "'Raleway', sans-serif",
+                fontWeight: 800,
+                fontSize: '1rem',
+                cursor: 'pointer',
+                boxShadow: '0 8px 25px rgba(44, 107, 55, 0.25)',
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'translateY(-3px)';
+                e.currentTarget.style.boxShadow = '0 12px 30px rgba(44, 107, 55, 0.35)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(44, 107, 55, 0.25)';
+              }}
+            >
+              Submit Requirements & Feedback
+            </button>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
