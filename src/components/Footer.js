@@ -48,16 +48,15 @@ const WheatStalk = () => (
   </svg>
 );
 
-export default function Footer() {
+export default function Footer({ navigateTo }) {
   const quickLinks = [
-    { name: 'About Our Mill', id: 'about' },
-    { name: 'Our Process', id: 'history' },
-    { name: 'Rice Varieties', id: 'products' },
-    { name: 'Sustainable Farming', id: 'quality' },
-    { name: 'Careers', id: 'contact' },
-    { name: 'Contact Us', id: 'contact' },
-    { name: 'Press & Media', id: 'testimonials' },
-    { name: 'Community Impact', id: 'testimonials' }
+    { name: 'Home', page: 'home' },
+    { name: 'About Our Mill', page: 'about' },
+    { name: 'Rice Varieties', page: 'home', section: 'products' },
+    { name: 'Our Process', page: 'home', section: 'quality' },
+    { name: 'Our Journey', page: 'about', section: 'history' },
+    { name: 'Testimonials', page: 'home', section: 'testimonials' },
+    { name: 'Contact Us', page: 'home', section: 'contact' }
   ];
 
   const socialChannels = [
@@ -175,10 +174,12 @@ export default function Footer() {
                 <li key={index} style={{ margin: 0 }}>
                   <span
                     onClick={() => {
-                      if (link.name === 'Careers') {
-                        alert('Join our team! Send your resume to careers@srikrishnarice.com');
+                      if (navigateTo) {
+                        navigateTo(link.page, link.section || null);
                       } else {
-                        document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' });
+                        // Fallback scrolling
+                        const id = link.section || (link.page === 'about' ? 'about' : 'home');
+                        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
                       }
                     }}
                     style={{

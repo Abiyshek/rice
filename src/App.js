@@ -252,7 +252,7 @@ export default function App() {
       ) : (
         <About />
       )}
-      <Footer />
+      <Footer navigateTo={navigateTo} />
     </div>
   );
 }

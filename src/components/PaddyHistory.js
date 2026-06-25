@@ -128,7 +128,7 @@ export default function PaddyHistory() {
   };
 
   return (
-    <section id="history" ref={sectionRef} style={{ height: `${stages.length * 120}vh`, position: 'relative' }}>
+    <section id="history" ref={sectionRef} style={{ height: `${stages.length * 120}vh`, position: 'relative', overflow: 'visible' }}>
       {/* Sticky wrapper */}
       <div style={{
         position: 'sticky', top: 0, height: '100vh',
