@@ -108,32 +108,31 @@ export default function Contact() {
 
   return (
     <section id="contact" style={{
-      background: 'linear-gradient(135deg, #FAF8F5 0%, #FAF2E8 100%)',
+      background: 'linear-gradient(135deg, #FAF6F0 0%, #F3ECE0 100%)',
       padding: '8rem 3rem', minHeight: 'auto',
     }}>
 
       <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
         <ScrollReveal direction="up">
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '0.9rem', letterSpacing: '0.4em', color: '#C99414', textTransform: 'uppercase', marginBottom: 12, fontWeight: 800 }}>
+          <div style={{
+            background: '#FFFFFF',
+            border: '3px solid #5C3D24',
+            borderRadius: '24px',
+            padding: '2rem 2.5rem',
+            maxWidth: '750px',
+            margin: '0 auto',
+            boxShadow: '0 8px 30px rgba(44, 107, 55, 0.05)',
+            textAlign: 'center',
+          }}>
+            <div style={{ fontSize: '0.9rem', letterSpacing: '0.4em', color: '#2C6B37', textTransform: 'uppercase', marginBottom: 12, fontWeight: 800 }}>
               Connect With Us
             </div>
-            <h2 className="gold-shimmer-text" style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#1C231A', marginBottom: '1.5rem' }}>
+            <h2 className="gold-shimmer-text" style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#1C231A', margin: '0 0 1rem 0' }}>
               Get a Quote
             </h2>
-            <div style={{
-              background: '#FFFFFF',
-              border: '1px solid rgba(44, 107, 55, 0.15)',
-              borderRadius: '50px',
-              padding: '0.75rem 2rem',
-              maxWidth: '650px',
-              margin: '0 auto',
-              boxShadow: '0 8px 30px rgba(44, 107, 55, 0.04)',
-            }}>
-              <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
-                Bulk orders, export inquiries, or just a question — we'd love to hear from you.
-              </p>
-            </div>
+            <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
+              Bulk orders, export inquiries, or just a question — we'd love to hear from you.
+            </p>
           </div>
         </ScrollReveal>
 

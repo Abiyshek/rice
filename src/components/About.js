@@ -18,7 +18,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    background: 'linear-gradient(180deg, #FFFFFF 0%, #FAF8F5 100%)',
+    background: 'linear-gradient(180deg, #FFFFFF 0%, #FAF6F0 100%)',
     color: '#1C231A',
   },
   container: {
@@ -224,9 +224,18 @@ export default function About() {
       <div style={styles.container}>
         {/* Title Area */}
         <ScrollReveal direction="up">
-          <div style={styles.headingArea}>
-            <h1 className="gold-shimmer-text" style={styles.title}>About Us</h1>
-            <div style={styles.subtitle}>Powering Taste & Tradition Since 1960</div>
+          <div style={{
+            background: '#FFFFFF',
+            border: '3px solid #5C3D24',
+            borderRadius: '24px',
+            padding: '2rem 2.5rem',
+            maxWidth: '750px',
+            margin: '0 auto 4rem auto',
+            boxShadow: '0 8px 30px rgba(44, 107, 55, 0.05)',
+            textAlign: 'center',
+          }}>
+            <h1 className="gold-shimmer-text" style={{ ...styles.title, margin: 0 }}>About Us</h1>
+            <div style={{ ...styles.subtitle, color: '#2C6B37', margin: '0.5rem 0 0 0', textShadow: 'none' }}>Powering Taste & Tradition Since 1960</div>
           </div>
         </ScrollReveal>
 
@@ -391,26 +400,35 @@ export default function About() {
       <section id="leadership" style={{ ...styles.section, paddingTop: '5rem', minHeight: 'auto', background: 'transparent' }}>
         <div style={styles.container}>
           <ScrollReveal direction="up">
-            <div style={{ textAlign: 'center' }}>
-              <h2 className="gold-shimmer-text" style={{ ...styles.sectionTitle, marginBottom: '3rem' }}>The Visionaries Behind Sri Krishna</h2>
-
-              <div style={styles.leaderGrid}>
-                {[
-                  { name: 'Mr. Kumarapa', img: kumarapaImg },
-                  { name: 'Mr. K. Radhakrishnan', img: radhakrishnanImg },
-                ].map((leader, idx) => (
-                  <ScrollReveal key={idx} direction="up" delay={idx * 0.2}>
-                    <div className="leader-card-hover" style={styles.leaderCard}>
-                      <div style={styles.leaderAvatar}>
-                        <img src={leader.img} alt={leader.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      </div>
-                      <h3 style={styles.leaderName}>{leader.name}</h3>
-                    </div>
-                  </ScrollReveal>
-                ))}
-              </div>
+            <div style={{
+              background: '#FFFFFF',
+              border: '3px solid #5C3D24',
+              borderRadius: '24px',
+              padding: '2rem 2.5rem',
+              maxWidth: '750px',
+              margin: '0 auto 3rem auto',
+              boxShadow: '0 8px 30px rgba(44, 107, 55, 0.05)',
+              textAlign: 'center',
+            }}>
+              <h2 className="gold-shimmer-text" style={{ ...styles.sectionTitle, margin: 0 }}>The Visionaries Behind Sri Krishna</h2>
             </div>
           </ScrollReveal>
+
+          <div style={styles.leaderGrid}>
+            {[
+              { name: 'Mr. Kumarapa', img: kumarapaImg },
+              { name: 'Mr. K. Radhakrishnan', img: radhakrishnanImg },
+            ].map((leader, idx) => (
+              <ScrollReveal key={idx} direction="up" delay={idx * 0.2}>
+                <div className="leader-card-hover" style={styles.leaderCard}>
+                  <div style={styles.leaderAvatar}>
+                    <img src={leader.img} alt={leader.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                  <h3 style={styles.leaderName}>{leader.name}</h3>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
     </div>

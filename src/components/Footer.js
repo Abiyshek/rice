@@ -1,137 +1,328 @@
 import React from 'react';
-import { Wheat, ArrowRight } from 'lucide-react';
-import logoImg from '../assets/logo/SKRM_logo.png';
+import { ArrowRight, Sparkles } from 'lucide-react';
+import footerBgClean from '../assets/bg/footer_bg_clean.png';
 
-/** Decorative wheat stalk wave separator above footer */
-function FooterWaveDecoration() {
-  return (
-    <div style={{ width: '100%', overflow: 'hidden', lineHeight: 0, marginBottom: '-1px' }} aria-hidden="true">
-      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style={{ width: '100%', height: '60px', display: 'block' }}>
-        <defs>
-          <linearGradient id="footer-wave-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#2C6B37" stopOpacity="0.08" />
-            <stop offset="50%" stopColor="#C99414" stopOpacity="0.1" />
-            <stop offset="100%" stopColor="#2C6B37" stopOpacity="0.08" />
-          </linearGradient>
-        </defs>
-        <path d="M0,40 C360,80 720,0 1080,40 C1260,60 1350,30 1440,45 L1440,80 L0,80 Z" fill="url(#footer-wave-grad)" />
-        <path d="M0,55 C240,35 480,70 720,50 C960,30 1200,65 1440,48 L1440,80 L0,80 Z" fill="#FFFFFF" opacity="0.5" />
-        {/* Decorative wheat grain dots */}
-        {[180, 480, 780, 1080].map((x, i) => (
-          <g key={i} transform={`translate(${x}, ${40 + Math.sin(i) * 10})`}>
-            <ellipse rx="3" ry="6" fill="#C99414" opacity="0.2" transform={`rotate(${20 + i * 12})`} />
-          </g>
-        ))}
-      </svg>
-    </div>
-  );
-}
+// Custom Social Icons to match mockup style perfectly
+const FacebookIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+  </svg>
+);
+
+const XIcon = () => (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
+
+const InstagramIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+  </svg>
+);
+
+const LinkedinIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+  </svg>
+);
+
+const YoutubeIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+    <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.524 3.545 12 3.545 12 3.545s-7.525 0-9.388.51a3.003 3.003 0 0 0-2.11 2.108C0 8.029 0 12 0 12s0 3.97.502 5.837a3.003 3.003 0 0 0 2.11 2.108C4.475 20.455 12 20.455 12 20.455s7.524 0 9.388-.51a3.002 3.002 0 0 0 2.11-2.108C24 15.97 24 12 24 12s0-3.971-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+  </svg>
+);
+
+const WheatStalk = () => (
+  <svg viewBox="0 0 24 36" width="30" height="45" style={{ marginTop: '1.25rem', alignSelf: 'flex-start' }} aria-hidden="true">
+    <path d="M12 34V6" stroke="#C99414" strokeWidth="2" strokeLinecap="round" />
+    <path d="M12 6C12 2 10 1 12 0C14 1 12 2 12 6" fill="#C99414" />
+    {[10, 16, 22, 28].map((y, idx) => (
+      <g key={idx}>
+        <path d={`M12 ${y} C8 ${y-3} 5 ${y-1} 5 ${y+2} C7 ${y+3} 10 ${y+1} 12 ${y}`} fill="#C99414" />
+        <path d={`M12 ${y} C16 ${y-3} 19 ${y-1} 19 ${y+2} C17 ${y+3} 14 ${y+1} 12 ${y}`} fill="#C99414" />
+      </g>
+    ))}
+  </svg>
+);
 
 export default function Footer() {
+  const quickLinks = [
+    { name: 'About Our Mill', id: 'about' },
+    { name: 'Our Process', id: 'history' },
+    { name: 'Rice Varieties', id: 'products' },
+    { name: 'Sustainable Farming', id: 'quality' },
+    { name: 'Careers', id: 'contact' },
+    { name: 'Contact Us', id: 'contact' },
+    { name: 'Press & Media', id: 'testimonials' },
+    { name: 'Community Impact', id: 'testimonials' }
+  ];
+
+  const socialChannels = [
+    { icon: <FacebookIcon />, url: 'https://www.facebook.com/SriKrishnaModernRiceMill/', label: 'Facebook' },
+    { icon: <XIcon />, url: 'https://x.com', label: 'X (formerly Twitter)' },
+    { icon: <InstagramIcon />, url: 'https://instagram.com', label: 'Instagram' },
+    { icon: <LinkedinIcon />, url: 'https://www.linkedin.com/company/srikrishnarice/', label: 'LinkedIn' },
+    { icon: <YoutubeIcon />, url: 'https://youtube.com', label: 'YouTube' }
+  ];
+
   return (
-    <>
-      <FooterWaveDecoration />
-      <footer style={{
-        background: '#FFFFFF',
-        borderTop: '1px solid rgba(44, 107, 55, 0.12)',
-        padding: '4rem 3rem 2rem',
-        position: 'relative',
-      }}>
-        {/* Decorative wheat stalk SVG border at top */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '3px',
-          background: 'linear-gradient(90deg, transparent 5%, #C99414 20%, #2C6B37 50%, #C99414 80%, transparent 95%)',
-          opacity: 0.3,
-        }} />
+    <footer style={{
+      backgroundImage: `linear-gradient(to right, rgba(56, 38, 24, 0.95) 0%, rgba(56, 38, 24, 0.85) 50%, rgba(56, 38, 24, 0.55) 100%), url(${footerBgClean})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      borderTop: '1px solid rgba(201, 148, 20, 0.3)',
+      padding: '5rem 3rem 2.5rem',
+      position: 'relative',
+      borderRadius: '24px',
+      overflow: 'hidden',
+      marginTop: '2rem',
+      color: '#EADDC9'
+    }} className="footer-container">
+      {/* Accent glow line at top */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '3px',
+        background: 'linear-gradient(90deg, transparent 5%, #C99414 20%, #A0740E 50%, #C99414 80%, transparent 95%)',
+        opacity: 0.8,
+      }} />
 
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div className="responsive-footer-grid">
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: '1.5rem' }}>
-                <img 
-                  src={logoImg} 
-                  alt="Sri Krishna Modern Rice Mill" 
-                  style={{ 
-                    height: '44px', width: '44px', borderRadius: '50%', objectFit: 'cover', 
-                    border: '1.5px solid #2C6B37',
-                    transition: 'transform 0.3s ease',
-                  }} 
-                  onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1) rotate(5deg)'}
-                  onMouseLeave={e => e.currentTarget.style.transform = 'scale(1) rotate(0deg)'}
-                />
-              </div>
-              <p style={{ color: '#5C6757', fontSize: '0.85rem', lineHeight: 1.8, maxWidth: 320 }}>
-                Three generations of milling excellence. From the paddy fields of Tamil Nadu 
-                to tables worldwide — purity in every grain since 1960.
-              </p>
-            </div>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <div className="responsive-footer-grid">
+          {/* Column 1: About */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start', textAlign: 'left' }}>
+            <h3 style={{
+              fontFamily: "'Cinzel', serif",
+              fontSize: '1.3rem',
+              color: '#FFFFFF',
+              fontWeight: 600,
+              margin: 0,
+              letterSpacing: '0.03em'
+            }}>
+              About Sri Krishna Rice Mill
+            </h3>
+            <p style={{
+              fontSize: '0.9rem',
+              lineHeight: 1.7,
+              margin: 0,
+              color: '#E5D3C0',
+              fontWeight: 400
+            }}>
+              Bringing you the finest, locally sourced rice with a commitment to quality and community for over 60 years. Our modern milling processes ensure every grain is perfect.
+            </p>
+            <button
+              onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#FFFFFF',
+                fontSize: '0.9rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '4px 0',
+                transition: 'opacity 0.2s',
+                fontFamily: "'Raleway', sans-serif"
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.opacity = '0.8';
+                const circle = e.currentTarget.querySelector('.discover-arrow-circle');
+                if (circle) circle.style.transform = 'translateX(4px)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.opacity = '1';
+                const circle = e.currentTarget.querySelector('.discover-arrow-circle');
+                if (circle) circle.style.transform = 'translateX(0)';
+              }}
+            >
+              Discover More
+              <span style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '28px',
+                height: '28px',
+                borderRadius: '50%',
+                backgroundColor: '#FFFFFF',
+                transition: 'transform 0.3s'
+              }} className="discover-arrow-circle">
+                <ArrowRight size={14} color="#382618" />
+              </span>
+            </button>
+          </div>
 
-            <div>
-              <h4 style={{ fontFamily: "'Raleway', sans-serif", fontWeight: 800, color: '#1C231A', marginBottom: '1.2rem', fontSize: '0.95rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
-                Quick Links
-              </h4>
-              {['About', 'Products', 'Quality', 'Testimonials', 'Contact'].map(item => (
-                <div key={item} style={{ marginBottom: 8 }}>
+          {/* Column 2: Quick Links */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start', textAlign: 'left' }}>
+            <h3 style={{
+              fontFamily: "'Cinzel', serif",
+              fontSize: '1.3rem',
+              color: '#FFFFFF',
+              fontWeight: 600,
+              margin: 0,
+              letterSpacing: '0.03em'
+            }}>
+              Quick Links
+            </h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem', alignItems: 'flex-start' }}>
+              {quickLinks.map((link, index) => (
+                <li key={index} style={{ margin: 0 }}>
                   <span
-                    onClick={() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })}
-                    style={{ 
-                      color: '#5C6757', fontSize: '0.85rem', cursor: 'pointer', transition: 'all 0.2s', 
-                      display: 'inline-flex', alignItems: 'center', gap: '6px', fontWeight: 500,
-                      position: 'relative',
+                    onClick={() => {
+                      if (link.name === 'Careers') {
+                        alert('Join our team! Send your resume to careers@srikrishnarice.com');
+                      } else {
+                        document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
+                    style={{
+                      color: '#E5D3C0',
+                      fontSize: '0.9rem',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      fontWeight: 500
                     }}
                     onMouseEnter={e => {
-                      e.target.style.color = '#2C6B37';
-                      e.target.style.paddingLeft = '6px';
+                      e.currentTarget.style.color = '#C99414';
+                      e.currentTarget.style.transform = 'translateX(4px)';
                     }}
                     onMouseLeave={e => {
-                      e.target.style.color = '#5C6757';
-                      e.target.style.paddingLeft = '0';
+                      e.currentTarget.style.color = '#E5D3C0';
+                      e.currentTarget.style.transform = 'translateX(0)';
                     }}
                   >
-                    <ArrowRight size={12} color="#2C6B37" /> {item}
+                    <span style={{ color: '#C99414' }}>•</span> {link.name}
                   </span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
+          </div>
 
-            <div>
-              <h4 style={{ fontFamily: "'Raleway', sans-serif", fontWeight: 800, color: '#1C231A', marginBottom: '1.2rem', fontSize: '0.95rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
-                Products
-              </h4>
-              {['White Ponni', 'Sona Masuri', 'Jeeraga Samba', 'Deluxe Ponni', 'BPT Rice', 'Swarna'].map(p => (
-                <div key={p} style={{ 
-                  color: '#5C6757', fontSize: '0.85rem', marginBottom: 8, display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 500,
-                  transition: 'all 0.2s',
-                  cursor: 'default',
-                }}
-                  onMouseEnter={e => e.currentTarget.style.color = '#2C6B37'}
-                  onMouseLeave={e => e.currentTarget.style.color = '#5C6757'}
+          {/* Column 3: Contact Us */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start', textAlign: 'left' }}>
+            <h3 style={{
+              fontFamily: "'Cinzel', serif",
+              fontSize: '1.3rem',
+              color: '#FFFFFF',
+              fontWeight: 600,
+              margin: 0,
+              letterSpacing: '0.03em'
+            }}>
+              Contact Us
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', fontSize: '0.88rem', lineHeight: 1.5, color: '#E5D3C0' }}>
+              <div>
+                <strong style={{ color: '#FFFFFF', fontWeight: 700 }}>Registered Office :</strong> R.S.No:138/1&2 Mankuppam main road, Andiyarpalayam, P.O, Gangarampalaiyam, Puducherry, 605108
+              </div>
+              <div>
+                <strong style={{ color: '#FFFFFF', fontWeight: 700 }}>Corporate Office :</strong> Andiyarpalayam, Puducherry, India
+              </div>
+              <div>
+                <strong style={{ color: '#FFFFFF', fontWeight: 700 }}>Call :</strong>{' '}
+                <a 
+                  href="tel:+919999999999" 
+                  style={{ color: '#E5D3C0', textDecoration: 'none', transition: 'color 0.2s' }}
+                  onMouseEnter={e => e.currentTarget.style.color = '#C99414'}
+                  onMouseLeave={e => e.currentTarget.style.color = '#E5D3C0'}
                 >
-                  <Wheat size={12} color="#2C6B37" className="grain-rotate" /> {p}
-                </div>
-              ))}
+                  +91 XXXXX XXXXX
+                </a>
+              </div>
+              <div>
+                <strong style={{ color: '#FFFFFF', fontWeight: 700 }}>Email :</strong>{' '}
+                <a 
+                  href="mailto:info@srikrishnarice.com" 
+                  style={{ color: '#E5D3C0', textDecoration: 'none', transition: 'color 0.2s' }}
+                  onMouseEnter={e => e.currentTarget.style.color = '#C99414'}
+                  onMouseLeave={e => e.currentTarget.style.color = '#E5D3C0'}
+                >
+                  info@srikrishnarice.com
+                </a>
+              </div>
             </div>
           </div>
 
-          <div style={{
-            borderTop: '1px solid rgba(44, 107, 55, 0.08)',
-            paddingTop: '1.5rem',
-            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-            flexWrap: 'wrap', gap: '1rem',
-          }}>
-            <div style={{ color: '#8C9787', fontSize: '0.8rem' }}>
-              © 2024 Sri Krishna Modern Rice Mill. All rights reserved.
+          {/* Column 4: Follow Us */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start', textAlign: 'left' }}>
+            <h3 style={{
+              fontFamily: "'Cinzel', serif",
+              fontSize: '1.3rem',
+              color: '#FFFFFF',
+              fontWeight: 600,
+              margin: 0,
+              letterSpacing: '0.03em'
+            }}>
+              Follow Us
+            </h3>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              {socialChannels.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '50%',
+                    border: '1.5px solid rgba(255, 255, 255, 0.4)',
+                    color: '#FFFFFF',
+                    transition: 'all 0.3s ease',
+                    textDecoration: 'none'
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = '#FFFFFF';
+                    e.currentTarget.style.transform = 'translateY(-3px)';
+                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
+                >
+                  {social.icon}
+                </a>
+              ))}
             </div>
-            <div style={{ color: '#8C9787', fontSize: '0.8rem' }}>
-              Andiyarpalayam, Puducherry • Since 1960
-            </div>
+            <WheatStalk />
           </div>
         </div>
-      </footer>
-    </>
+
+        {/* Divider and Copyright Row */}
+        <div style={{
+          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+          paddingTop: '2rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '1rem',
+          fontSize: '0.85rem',
+          color: '#B0A294'
+        }}>
+          <div>
+            © 2026 Sri Krishna Modern Rice Mill. All Rights Reserved. – The Journey of a Grain
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 600, color: '#FFFFFF', letterSpacing: '0.05em' }}>
+            THE FULL JOURNEY
+            <Sparkles size={14} color="#C99414" />
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 }

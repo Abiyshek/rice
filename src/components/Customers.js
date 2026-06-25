@@ -81,33 +81,32 @@ export default function Customers() {
 
   return (
     <section style={{
-      backgroundImage: `linear-gradient(rgba(242, 247, 244, 0.70), rgba(228, 239, 234, 0.70)), url(${bg3})`,
+      backgroundImage: `linear-gradient(rgba(250, 246, 240, 0), rgba(250, 246, 240, 0)), url(${bg3})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       padding: '8rem 3rem', minHeight: 'auto', overflow: 'hidden',
     }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <ScrollReveal direction="up">
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <div style={{
+            background: '#FFFFFF',
+            border: '3px solid #5C3D24',
+            borderRadius: '24px',
+            padding: '2rem 2.5rem',
+            maxWidth: '750px',
+            margin: '0 auto 4rem auto',
+            boxShadow: '0 8px 30px rgba(44, 107, 55, 0.05)',
+            textAlign: 'center',
+          }}>
             <div style={{ fontSize: '0.9rem', letterSpacing: '0.4em', color: '#2C6B37', textTransform: 'uppercase', marginBottom: 12, fontWeight: 800 }}>
               Trusted Partners
             </div>
-            <h2 className="gold-shimmer-text" style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#1C231A', marginBottom: '1.5rem' }}>
+            <h2 className="gold-shimmer-text" style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#1C231A', margin: '0 0 1rem 0' }}>
               Brands That Trust Us
             </h2>
-            <div style={{
-              background: '#FFFFFF',
-              border: '1px solid rgba(44, 107, 55, 0.15)',
-              borderRadius: '50px',
-              padding: '0.75rem 2rem',
-              maxWidth: '650px',
-              margin: '0 auto',
-              boxShadow: '0 8px 30px rgba(44, 107, 55, 0.04)',
-            }}>
-              <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
-                From retail giants to premium hotels — our rice is on tables across South India and beyond.
-              </p>
-            </div>
+            <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
+              From retail giants to premium hotels — our rice is on tables across South India and beyond.
+            </p>
           </div>
         </ScrollReveal>
 
@@ -328,96 +327,43 @@ export default function Customers() {
           ))}
         </div>
 
-        {/* Interactive Global Network Map */}
-        <ScrollReveal direction="up" delay={0.2}>
+        {/* Interactive Global Network Map — Header Card Outside */}
+        <ScrollReveal direction="up" delay={0.15}>
           <div style={{
-            marginTop: '5rem',
             background: '#FFFFFF',
             border: '3px solid #5C3D24',
-            borderRadius: 28,
-            padding: isMobile ? '2rem 1rem' : '3.5rem',
-            boxShadow: '0 12px 40px rgba(0, 102, 204, 0.04)',
+            borderRadius: '24px',
+            padding: '2rem 2.5rem',
+            maxWidth: '750px',
+            margin: '5rem auto 2.5rem auto',
+            boxShadow: '0 8px 30px rgba(44, 107, 55, 0.05)',
             textAlign: 'center',
-            position: 'relative',
-            overflow: 'hidden',
           }}>
-            <style>{`
-              @keyframes dash {
-                to {
-                  stroke-dashoffset: -20;
-                }
-              }
-              @keyframes pulse {
-                0% { transform: scale(0.9); opacity: 1; }
-                50% { transform: scale(1.4); opacity: 0.4; }
-                100% { transform: scale(0.9); opacity: 1; }
-              }
-              .pulse-dot {
-                animation: pulse 2s infinite ease-in-out;
-              }
-              .map-flow-line {
-                stroke-dasharray: 5, 5;
-                animation: dash 1.5s linear infinite;
-              }
-            `}</style>
-
-            <div style={{ marginBottom: '2.5rem' }}>
-              <div style={{ fontSize: '0.8rem', letterSpacing: '0.3em', color: '#2C6B37', textTransform: 'uppercase', marginBottom: 6, fontWeight: 800 }}>
-                Our Presence
-              </div>
-              <h3 style={{ fontFamily: "'Cinzel', serif", fontSize: '1.8rem', color: '#1C231A', margin: 0, fontWeight: 800 }}>
-                Global Export Footprint
-              </h3>
-              <p style={{ color: '#5C6757', fontSize: '0.9rem', marginTop: '0.5rem', fontWeight: 500 }}>
-                Hover over the pulsing markers to explore our domestic and international distribution hubs.
-              </p>
+            <div style={{ fontSize: '0.9rem', letterSpacing: '0.4em', color: '#2C6B37', textTransform: 'uppercase', marginBottom: 12, fontWeight: 800 }}>
+              Our Presence
             </div>
+            <h2 className="gold-shimmer-text" style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', color: '#1C231A', margin: '0 0 1rem 0' }}>
+              Global Export Footprint
+            </h2>
+            <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
+              Hover over the pulsing markers to explore our domestic and international distribution hubs.
+            </p>
+          </div>
+        </ScrollReveal>
 
-            {/* 3D revolving globe using ThreeGlobe */}
-            <div style={{
-              position: 'relative',
-              width: '100%',
-              maxWidth: '800px',
-              margin: '0 auto',
-              background: '#FAF9F6',
-              borderRadius: '16px',
-              border: '1px solid rgba(44, 107, 55, 0.15)',
-              padding: '1.5rem',
-              boxShadow: 'inset 0 4px 15px rgba(0,0,0,0.02)',
-              overflow: 'hidden',
-            }}>
-              <ThreeGlobe onHoverPoint={setHoveredPoint} />
-
-              {/* Tooltip Description Panel */}
-              <div style={{
-                marginTop: '1.5rem',
-                minHeight: '60px',
-                padding: '0.8rem 1.5rem',
-                background: '#FFFFFF',
-                borderRadius: '12px',
-                border: '1.5px solid #5C3D24',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.02)',
-              }}>
-                {hoveredPoint !== null ? (
-                  <>
-                    <h4 style={{ margin: '0 0 4px 0', fontFamily: "'Cinzel', serif", color: exportPoints[hoveredPoint].isOrigin ? '#2C6B37' : '#C99414', fontWeight: 800 }}>
-                      {exportPoints[hoveredPoint].name}
-                    </h4>
-                    <p style={{ margin: 0, fontSize: '0.85rem', color: '#5C6757', fontWeight: 600 }}>
-                      {exportPoints[hoveredPoint].desc}
-                    </p>
-                  </>
-                ) : (
-                  <p style={{ margin: 0, fontSize: '0.85rem', color: '#5C6757', fontStyle: 'italic', fontWeight: 500 }}>
-                    Drag to rotate. Hover over any pulsing marker on the 3D globe to view market details.
-                  </p>
-                )}
-              </div>
-            </div>
+        {/* Map Container and Tooltip Description Panel */}
+        <ScrollReveal direction="up" delay={0.2}>
+          <div style={{
+            position: 'relative',
+            borderRadius: 28,
+            overflow: 'hidden',
+            border: '3px solid #5C3D24',
+            boxShadow: '0 12px 40px rgba(0, 102, 204, 0.04)',
+            background: '#FFFFFF',
+            maxWidth: '850px',
+            margin: '0 auto',
+          }}>
+            <ThreeGlobe onHoverPoint={setHoveredPoint} isMobile={isMobile} />
           </div>
         </ScrollReveal>
       </div>

@@ -112,7 +112,7 @@ export default function Testimonials() {
 
   return (
     <section id="testimonials" ref={sectionRef} style={{
-      backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.70), rgba(251, 246, 238, 0.70)), url(${bg4})`,
+      backgroundImage: `linear-gradient(rgba(250, 246, 240, 0.1), rgba(250, 246, 240, 0.1)), url(${bg4})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       padding: '8rem 2rem 5rem 2rem',
@@ -183,7 +183,16 @@ export default function Testimonials() {
           /* Live Elfsight Widget */
           <div>
             <ScrollReveal direction="up">
-              <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+              <div style={{
+                background: '#FFFFFF',
+                border: '3px solid #5C3D24',
+                borderRadius: '24px',
+                padding: '2rem 2.5rem',
+                maxWidth: '750px',
+                margin: '0 auto 3rem auto',
+                boxShadow: '0 8px 30px rgba(44, 107, 55, 0.05)',
+                textAlign: 'center',
+              }}>
                 <div style={{
                   fontSize: '0.9rem',
                   letterSpacing: '0.4em',
@@ -202,7 +211,7 @@ export default function Testimonials() {
                   fontFamily: "'Cinzel', serif",
                   fontSize: 'clamp(2rem, 5vw, 3.5rem)',
                   color: '#1C231A',
-                  marginBottom: '1rem',
+                  margin: 0,
                 }}>
                   Google Customer Reviews
                 </h2>
@@ -216,7 +225,16 @@ export default function Testimonials() {
           <div>
             {/* Header */}
             <ScrollReveal direction="up">
-              <div style={{ textAlign: 'center', marginBottom: '5rem', position: 'relative' }}>
+              <div style={{
+                background: '#FFFFFF',
+                border: '3px solid #5C3D24',
+                borderRadius: '24px',
+                padding: '2rem 2.5rem',
+                maxWidth: '750px',
+                margin: '0 auto 5rem auto',
+                boxShadow: '0 8px 30px rgba(44, 107, 55, 0.05)',
+                textAlign: 'center',
+              }}>
                 <div style={{
                   fontSize: '0.9rem',
                   letterSpacing: '0.4em',
@@ -236,19 +254,18 @@ export default function Testimonials() {
                   fontFamily: "'Cinzel', serif",
                   fontSize: 'clamp(2rem, 5vw, 3.5rem)',
                   color: '#1C231A',
-                  marginBottom: '1.5rem',
+                  margin: '0 0 1.5rem 0',
                 }}>
                   Google Customer Reviews
                 </h2>
                 
                 <div style={{
-                  background: '#FFFFFF',
+                  background: '#FAF6F0',
                   border: '1px solid rgba(44, 107, 55, 0.15)',
                   borderRadius: '50px',
                   padding: '0.75rem 2rem',
                   maxWidth: '650px',
-                  margin: '0 auto 2rem auto',
-                  boxShadow: '0 8px 30px rgba(44, 107, 55, 0.04)',
+                  margin: '0 auto',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',

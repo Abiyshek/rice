@@ -49,7 +49,8 @@ const styles = {
   subtitle: {
     fontSize: '0.9rem',
     letterSpacing: '0.4em',
-    color: '#2C6B37',
+    color: '#F1C40F',
+    textShadow: '0 2px 4px rgba(0,0,0,0.8)',
     textTransform: 'uppercase',
     marginBottom: 12,
     fontWeight: 800,
@@ -147,7 +148,7 @@ export default function Quality() {
           style={{
             position: 'absolute',
             inset: 0,
-            backgroundImage: `linear-gradient(rgba(250, 249, 246, 0.70), rgba(250, 249, 246, 0.70)), url(${s.bg})`,
+            backgroundImage: `linear-gradient(rgba(250, 246, 240, 0), rgba(250, 246, 240, 0)), url(${s.bg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',
@@ -177,22 +178,25 @@ export default function Quality() {
 
       <div style={styles.container}>
         <ScrollReveal direction="up">
-          <div style={styles.headingArea}>
-            <div style={styles.subtitle}>Our Process</div>
-            <h1 className="gold-shimmer-text" style={styles.title}>How We Ensure Quality</h1>
-            <div style={{
-              background: '#FFFFFF',
-              border: '1px solid rgba(44, 107, 55, 0.15)',
-              borderRadius: '50px',
-              padding: '0.75rem 2rem',
-              maxWidth: '650px',
-              margin: '0 auto',
-              boxShadow: '0 8px 30px rgba(44, 107, 55, 0.04)',
-            }}>
-              <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
-                Every grain carries our family's reputation. Here's how we protect it stage by stage.
-              </p>
+          <div style={{
+            background: '#FFFFFF',
+            border: '3px solid #5C3D24',
+            borderRadius: '24px',
+            padding: '2rem 2.5rem',
+            maxWidth: '750px',
+            margin: '0 auto 4rem auto',
+            boxShadow: '0 8px 30px rgba(44, 107, 55, 0.05)',
+            textAlign: 'center',
+          }}>
+            <div style={{ fontSize: '0.9rem', letterSpacing: '0.4em', color: '#2C6B37', textTransform: 'uppercase', marginBottom: 12, fontWeight: 800 }}>
+              Our Process
             </div>
+            <h1 className="gold-shimmer-text" style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: '#1C231A', margin: '0 0 1rem 0' }}>
+              How We Ensure Quality
+            </h1>
+            <p style={{ color: '#5C6757', margin: 0, fontSize: '0.95rem', fontWeight: 600 }}>
+              Every grain carries our family's reputation. Here's how we protect it stage by stage.
+            </p>
           </div>
         </ScrollReveal>
 

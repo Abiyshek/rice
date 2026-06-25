@@ -144,7 +144,7 @@ export default function Stats() {
 
   return (
     <section ref={ref} style={{
-      backgroundImage: `linear-gradient(rgba(253, 250, 245, 0.70), rgba(247, 239, 227, 0.70)), url(${statsBg})`,
+      backgroundImage: `linear-gradient(rgba(250, 246, 240, 0), rgba(250, 246, 240, 0)), url(${statsBg})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       padding: '6rem 3rem', minHeight: 'auto',
@@ -162,11 +162,20 @@ export default function Stats() {
 
       <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 2 }}>
         <ScrollReveal direction="up">
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <div style={{
+            background: '#FFFFFF',
+            border: '3px solid #5C3D24',
+            borderRadius: '24px',
+            padding: '2rem 2.5rem',
+            maxWidth: '750px',
+            margin: '0 auto 4rem auto',
+            boxShadow: '0 8px 30px rgba(44, 107, 55, 0.05)',
+            textAlign: 'center',
+          }}>
             <div style={{ fontSize: '0.9rem', letterSpacing: '0.4em', color: '#2C6B37', textTransform: 'uppercase', marginBottom: 12, fontWeight: 800 }}>
               By The Numbers
             </div>
-            <h2 className="gold-shimmer-text" style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#1C231A' }}>
+            <h2 className="gold-shimmer-text" style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#1C231A', margin: 0 }}>
               The Scale of Our Excellence
             </h2>
           </div>

@@ -52,8 +52,8 @@ const styles = {
     transition: 'transform 0.3s ease',
   },
   logo: {
-    height: '65px',
-    width: '65px',
+    height: '80px',
+    width: '80px',
     borderRadius: '50%',
     objectFit: 'cover',
     border: '2.5px solid #2C6B37',
@@ -118,6 +118,7 @@ export default function Navbar({ currentPage, navigateTo }) {
   return (
     <div style={{
       ...styles.wrapper,
+      background: '#FFFFFF',
       padding: scrolled ? '0.1rem 0' : '0.4rem 0',
       borderBottom: scrolled ? '1px solid rgba(44, 107, 55, 0.15)' : '1px solid rgba(44, 107, 55, 0.08)',
       boxShadow: scrolled ? '0 10px 30px rgba(0,0,0,0.06)' : '0 4px 20px rgba(0,0,0,0.03)',
@@ -140,8 +141,8 @@ export default function Navbar({ currentPage, navigateTo }) {
             alt="Sri Krishna Modern Rice Mill" 
             style={{
               ...styles.logo,
-              height: scrolled ? '55px' : '65px',
-              width: scrolled ? '55px' : '65px',
+              height: scrolled ? '60px' : '80px',
+              width: scrolled ? '60px' : '80px',
             }} 
           />
         </div>
@@ -186,7 +187,7 @@ export default function Navbar({ currentPage, navigateTo }) {
         {/* Mobile Header elements */}
         <div className="mobile-only-header-group" style={{ width: '100%', display: 'none', justifyContent: 'space-between', alignItems: 'center' }}>
           <div onClick={() => { handleNavClick('home'); setMobileMenuOpen(false); }} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-            <img src={logoImg} alt="Sri Krishna Logo" style={{ height: '45px', width: '45px', borderRadius: '50%', border: '2px solid #2C6B37' }} />
+            <img src={logoImg} alt="Sri Krishna Logo" style={{ height: '55px', width: '55px', borderRadius: '50%', border: '2px solid #2C6B37' }} />
           </div>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
@@ -230,7 +231,7 @@ export default function Navbar({ currentPage, navigateTo }) {
             top: '100%',
             left: 0,
             right: 0,
-            background: '#FFFFFF',
+            background: '#FAF6F0',
             borderBottom: '2px solid #2C6B37',
             boxShadow: '0 12px 30px rgba(0,0,0,0.1)',
             padding: '1.5rem',

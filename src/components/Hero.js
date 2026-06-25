@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Wheat, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import logoImg from '../assets/logo/SKRM_logo.png';
 import heritageBg from '../assets/bg/Gemini_Generated_Image_vldgx7vldgx7vldg.png';
+import slide1Bg from '../assets/bg/hero_slide1_bg.png';
+import slide2Bg from '../assets/bg/hero_slide2_bg.png';
 
 // Import collage images for slide 1
 import sowingImg from '../assets/collage/paddy_sowing.png';
@@ -130,9 +132,9 @@ export default function Hero() {
       margin: 0,
       padding: 0,
     }}>
-      
+
       {/* Slide Navigation Arrows */}
-      <button 
+      <button
         onClick={() => setActiveSlide((prev) => (prev === 0 ? 2 : prev - 1))}
         style={{
           position: 'absolute',
@@ -159,7 +161,7 @@ export default function Hero() {
         <ChevronLeft size={24} />
       </button>
 
-      <button 
+      <button
         onClick={() => setActiveSlide((prev) => (prev === 2 ? 0 : prev + 1))}
         style={{
           position: 'absolute',
@@ -208,108 +210,181 @@ export default function Hero() {
             width: '33.333%',
             height: '100%',
             position: 'relative',
-            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.72), rgba(254, 251, 245, 0.85)), url(${heritageBg})`,
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), url(${heritageBg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             display: 'flex',
             flexDirection: isMobile ? 'column' : 'row',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: isMobile ? '6.5rem 1.5rem 1.5rem 1.5rem' : '6.5rem 6.5rem 3rem 6.5rem',
+            justifyContent: isMobile ? 'center' : 'space-between',
+            padding: isMobile ? '6.5rem 1.5rem 1.5rem 1.5rem' : '6.5rem 3rem 3rem 3rem',
             boxSizing: 'border-box',
-            gap: '2.5rem',
+            gap: isMobile ? '1.5rem' : '1.5rem',
           }}>
-            {/* Left side: content */}
+            {/* Left Column: Text Card */}
             <div style={{
-              flex: '1 1 50%',
-              color: '#1C231A',
+              flex: isMobile ? '1 1 auto' : '1 1 40%',
+              maxWidth: isMobile ? '100%' : '480px',
               zIndex: 5,
               display: 'flex',
               flexDirection: 'column',
-              gap: '1.25rem',
               textAlign: isMobile ? 'center' : 'left',
               alignItems: isMobile ? 'center' : 'flex-start',
             }}>
               <div style={{
-                fontFamily: "'Playfair Display', serif",
-                fontStyle: 'italic',
-                fontSize: 'clamp(1.5rem, 3.5vw, 2.4rem)',
-                color: '#C99414',
-                fontWeight: 600,
+                background: 'rgba(255, 255, 255, 0.95)',
+                border: '3px solid #5C3D24',
+                borderRadius: '24px',
+                padding: isMobile ? '1.5rem' : '2rem',
+                width: '100%',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.12)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.1rem',
+                alignItems: isMobile ? 'center' : 'flex-start',
               }}>
-                From Field to Fork
-              </div>
-              <h1 style={{
-                fontFamily: "'Cinzel', serif",
-                fontSize: 'clamp(2.2rem, 5.5vw, 4.2rem)',
-                fontWeight: 900,
-                lineHeight: 1.1,
-                color: '#1C231A',
-                margin: 0,
-                textShadow: '0 2px 8px rgba(255,255,255,0.5)',
-              }}>
-                WE DELIVER<br />QUALITY
-              </h1>
-              <p style={{
-                fontFamily: "'Raleway', sans-serif",
-                fontSize: 'clamp(0.9rem, 2vw, 1.25rem)',
-                color: '#4B5548',
-                lineHeight: 1.6,
-                margin: '0.5rem 0 1.5rem 0',
-                maxWidth: '520px',
-              }}>
-                Your source for premium South Indian rice varieties. Empowering households with 45 tonnes of pure, automated sorting excellence daily.
-              </p>
-              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: isMobile ? 'center' : 'flex-start' }}>
-                <button 
-                  onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="glow-pulse-btn"
-                  style={{
-                    background: 'linear-gradient(135deg, #2C6B37, #4B9B5E)',
-                    color: '#FFFFFF',
-                    padding: '0.9rem 2.2rem',
-                    borderRadius: '50px',
-                    border: 'none',
-                    fontFamily: "'Raleway', sans-serif",
-                    fontWeight: 800,
-                    fontSize: '0.85rem',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 15px rgba(44, 107, 55, 0.25)',
-                    transition: 'all 0.3s ease',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                  }}
-                >
-                  Our Varieties
-                </button>
-                <button 
-                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                  style={{
-                    background: 'transparent',
-                    color: '#1C231A',
-                    padding: '0.9rem 2.2rem',
-                    borderRadius: '50px',
-                    border: '2px solid #C99414',
-                    fontFamily: "'Raleway', sans-serif",
-                    fontWeight: 800,
-                    fontSize: '0.85rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.background = '#C99414'; e.currentTarget.style.color = '#FFFFFF'; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#1C231A'; }}
-                >
-                  Get a Quote
-                </button>
+                {isMobile && (
+                  <div style={{
+                    width: '100px',
+                    height: '100px',
+                    borderRadius: '50%',
+                    border: '3.5px solid #2C6B37',
+                    background: '#FFFFFF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '0.4rem',
+                    boxShadow: '0 8px 24px rgba(44, 107, 55, 0.15)',
+                    alignSelf: 'center',
+                    overflow: 'hidden',
+                  }}>
+                    <img 
+                      src={logoImg} 
+                      alt="SKRM Logo" 
+                      style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover', 
+                        borderRadius: '50%' 
+                      }} 
+                    />
+                  </div>
+                )}
+                <div style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontStyle: 'italic',
+                  fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)',
+                  color: '#C99414',
+                  fontWeight: 600,
+                }}>
+                  From Field to Fork
+                </div>
+                <h1 style={{
+                  fontFamily: "'Cinzel', serif",
+                  fontSize: 'clamp(2rem, 4.5vw, 3.2rem)',
+                  fontWeight: 900,
+                  lineHeight: 1.15,
+                  color: '#1C231A',
+                  margin: 0,
+                }}>
+                  WE DELIVER<br />QUALITY
+                </h1>
+                <p style={{
+                  fontFamily: "'Raleway', sans-serif",
+                  fontSize: 'clamp(0.85rem, 1.8vw, 1.02rem)',
+                  color: '#5C6757',
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}>
+                  Your source for premium South Indian rice varieties. Empowering households with 45 tonnes of pure, automated sorting excellence daily.
+                </p>
+                <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', marginTop: '0.4rem', justifyContent: isMobile ? 'center' : 'flex-start' }}>
+                  <button
+                    onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="glow-pulse-btn"
+                    style={{
+                      background: 'linear-gradient(135deg, #2C6B37, #4B9B5E)',
+                      color: '#FFFFFF',
+                      padding: '0.8rem 1.8rem',
+                      borderRadius: '50px',
+                      border: 'none',
+                      fontFamily: "'Raleway', sans-serif",
+                      fontWeight: 800,
+                      fontSize: '0.8rem',
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 15px rgba(44, 107, 55, 0.25)',
+                      transition: 'all 0.3s ease',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                    }}
+                  >
+                    Our Varieties
+                  </button>
+                  <button
+                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                    style={{
+                      background: 'transparent',
+                      color: '#1C231A',
+                      padding: '0.8rem 1.8rem',
+                      borderRadius: '50px',
+                      border: '2px solid #C99414',
+                      fontFamily: "'Raleway', sans-serif",
+                      fontWeight: 800,
+                      fontSize: '0.8rem',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background = '#C99414'; e.currentTarget.style.color = '#FFFFFF'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#1C231A'; }}
+                  >
+                    Get a Quote
+                  </button>
+                </div>
               </div>
             </div>
 
-            {/* Right side: 3 Overlapping circles with connecting lines */}
+            {/* Center Column: Logo (Desktop Only) */}
             {!isMobile && (
               <div style={{
-                flex: '1 1 50%',
+                flex: '0 0 240px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 10,
+              }}>
+                <div style={{
+                  width: '220px',
+                  height: '220px',
+                  borderRadius: '50%',
+                  border: '6px solid #2C6B37',
+                  background: '#FFFFFF',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 25px 55px rgba(44, 107, 55, 0.28)',
+                  overflow: 'hidden',
+                  transform: 'translateX(65px)',
+                }}>
+                  <img 
+                    src={logoImg} 
+                    alt="SKRM Logo" 
+                    style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      objectFit: 'cover', 
+                      borderRadius: '50%' 
+                    }} 
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Right Column: 3 Overlapping circles (Desktop Only) */}
+            {!isMobile && (
+              <div style={{
+                flex: '1 1 40%',
                 position: 'relative',
                 height: '100%',
                 display: 'flex',
@@ -320,20 +395,23 @@ export default function Hero() {
                 {/* Container for absolute circles */}
                 <div style={{
                   position: 'relative',
-                  width: '420px',
-                  height: '420px',
+                  width: '400px',
+                  height: '400px',
                 }}>
+                  {/* Orbiting grains around circles */}
+                  <OrbitingGrains />
+
                   {/* Left Circle: Paddy Harvesting */}
                   <div style={{
                     position: 'absolute',
                     left: '0px',
-                    top: '90px',
-                    width: '170px',
-                    height: '170px',
+                    top: '80px',
+                    width: '160px',
+                    height: '160px',
                     borderRadius: '50%',
                     border: '4px solid #C99414',
                     overflow: 'hidden',
-                    boxShadow: '0 12px 35px rgba(0,0,0,0.4)',
+                    boxShadow: '0 12px 35px rgba(0,0,0,0.3)',
                     zIndex: 3,
                   }}>
                     <img src={harvestingImg} alt="Harvesting" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -342,14 +420,14 @@ export default function Hero() {
                   {/* Top/Right Circle: Processing */}
                   <div style={{
                     position: 'absolute',
-                    left: '210px',
+                    left: '200px',
                     top: '10px',
-                    width: '190px',
-                    height: '190px',
+                    width: '180px',
+                    height: '180px',
                     borderRadius: '50%',
                     border: '4px solid #2C6B37',
                     overflow: 'hidden',
-                    boxShadow: '0 12px 35px rgba(0,0,0,0.4)',
+                    boxShadow: '0 12px 35px rgba(0,0,0,0.3)',
                     zIndex: 2,
                   }}>
                     <img src={processingImg} alt="Processing" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -358,14 +436,14 @@ export default function Hero() {
                   {/* Center/Bottom Circle: Scoop of raw rice grains */}
                   <div style={{
                     position: 'absolute',
-                    left: '115px',
-                    top: '210px',
-                    width: '180px',
-                    height: '180px',
+                    left: '110px',
+                    top: '200px',
+                    width: '170px',
+                    height: '170px',
                     borderRadius: '50%',
                     border: '4px solid #C99414',
                     overflow: 'hidden',
-                    boxShadow: '0 12px 35px rgba(0,0,0,0.4)',
+                    boxShadow: '0 12px 35px rgba(0,0,0,0.3)',
                     zIndex: 4,
                   }}>
                     <img src={productImg} alt="Raw Rice Scoop" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -373,38 +451,19 @@ export default function Hero() {
 
                   {/* Decorative SVG connection lines and pointers */}
                   <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1 }}>
-                    {/* Line to Left Circle */}
-                    <line x1="85" y1="175" x2="-20" y2="215" stroke="#C99414" strokeWidth="2" strokeDasharray="4 4" />
-                    <circle cx="-20" cy="215" r="4" fill="#C99414" />
-                    {/* Line to Top Circle */}
-                    <line x1="305" y1="105" x2="425" y2="75" stroke="#2C6B37" strokeWidth="2" strokeDasharray="4 4" />
-                    <circle cx="425" cy="75" r="4" fill="#2C6B37" />
+                    {/* Line to Top Circle label */}
+                    <line x1="290" y1="100" x2="395" y2="75" stroke="#2C6B37" strokeWidth="2" strokeDasharray="4 4" />
+                    <circle cx="395" cy="75" r="4" fill="#2C6B37" />
                   </svg>
 
-                  {/* Labels positioned at the endpoints of the dotted lines */}
                   <div style={{
                     position: 'absolute',
-                    left: '-170px',
-                    top: '205px',
-                    width: '140px',
-                    textAlign: 'right',
-                    color: '#1C231A',
-                    fontSize: '0.75rem',
-                    fontWeight: 700,
-                    textShadow: '0 1px 2px rgba(255,255,255,0.8)',
-                    zIndex: 5,
-                  }}>
-                    ISO 9001 Certified & Quality Checked
-                  </div>
-
-                  <div style={{
-                    position: 'absolute',
-                    left: '435px',
+                    left: '405px',
                     top: '65px',
-                    width: '150px',
+                    width: '120px',
                     textAlign: 'left',
                     color: '#1C231A',
-                    fontSize: '0.75rem',
+                    fontSize: '0.7rem',
                     fontWeight: 700,
                     textShadow: '0 1px 2px rgba(255,255,255,0.8)',
                     zIndex: 5,
@@ -424,6 +483,9 @@ export default function Hero() {
             width: '33.333%',
             height: '100%',
             position: 'relative',
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), url(${slide1Bg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
             display: 'flex',
             flexDirection: isMobile ? 'column' : 'row',
             alignItems: 'center',
@@ -431,147 +493,91 @@ export default function Hero() {
             padding: isMobile ? '6.5rem 1.5rem 1.5rem 1.5rem' : '6.5rem 6.5rem 3rem 6.5rem',
             boxSizing: 'border-box',
           }}>
-            {/* Vector Fields Background */}
-            <div style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              width: isMobile ? '100%' : '60%',
-              height: '100%',
-              pointerEvents: 'none',
-              zIndex: 1,
-              display: 'flex',
-              alignItems: 'flex-end',
-              overflow: 'hidden',
-            }}>
-              <svg viewBox="0 0 1000 600" style={{ width: '100%', height: 'auto', minHeight: '350px', transform: 'scale(1.15)', transformOrigin: 'bottom left' }}>
-                <path d="M-100,500 Q200,420 500,480 T1100,450 L1100,700 L-100,700 Z" fill="#2C856D" opacity="0.45" />
-                <path d="M-100,530 Q300,450 700,510 T1100,490 L1100,700 L-100,700 Z" fill="#267D66" opacity="0.6" />
-                <path d="M-100,560 Q400,490 800,540 T1100,520 L1100,700 L-100,700 Z" fill="#1C6B55" />
-                <path d="M150,520 L170,700 M250,520 L280,700 M350,520 L390,700 M450,530 L500,700 M550,533 L620,700 M650,535 L730,700" stroke="#145A46" strokeWidth="6" opacity="0.3" />
-                
-                {/* Tractor Graphic */}
-                <g transform="translate(180, 460) scale(0.65)" opacity="0.95">
-                  <rect x="50" y="30" width="75" height="45" fill="#145A46" rx="8" />
-                  <rect x="75" y="10" width="40" height="25" fill="#E2ECE9" rx="4" />
-                  <line x1="110" y1="10" x2="110" y2="30" stroke="#111" strokeWidth="4" />
-                  <line x1="65" y1="12" x2="65" y2="30" stroke="#555" strokeWidth="5" />
-                  <path d="M65,12 Q70,8 75,10" fill="none" stroke="#555" strokeWidth="4" />
-                  <circle cx="95" cy="22" r="8" fill="#D4A017" />
-                  <circle cx="45" cy="75" r="22" fill="#333" stroke="#222" strokeWidth="3" />
-                  <circle cx="45" cy="75" r="8" fill="#FAF6EB" />
-                  <circle cx="120" cy="75" r="14" fill="#333" stroke="#222" strokeWidth="3" />
-                  <circle cx="120" cy="75" r="5" fill="#FAF6EB" />
-                </g>
-
-                {/* Wheat stalk illustrations */}
-                <g transform="translate(30, 260) scale(0.8)">
-                  <path d="M80,300 Q40,150 90,40" fill="none" stroke="#C99414" strokeWidth="3" />
-                  {Array.from({ length: 9 }).map((_, stepIdx) => {
-                    const y = 60 + stepIdx * 25;
-                    const offset = stepIdx % 2 === 0 ? 10 : -10;
-                    return (
-                      <path key={stepIdx} d={`M${65 + offset},${y} Q${75 + offset * 1.5},${y - 12} ${65 + offset},${y - 20} Z`} fill="#C99414" />
-                    );
-                  })}
-                </g>
-                <g transform="translate(85, 290) scale(0.7) rotate(15)">
-                  <path d="M80,300 Q40,150 90,40" fill="none" stroke="#FAF6EB" strokeWidth="4" />
-                  {Array.from({ length: 9 }).map((_, stepIdx) => {
-                    const y = 60 + stepIdx * 25;
-                    const offset = stepIdx % 2 === 0 ? 10 : -10;
-                    return (
-                      <path key={stepIdx} d={`M${65 + offset},${y} Q${75 + offset * 1.5},${y - 12} ${65 + offset},${y - 20} Z`} fill="#FAF6EB" />
-                    );
-                  })}
-                </g>
-              </svg>
-            </div>
-
             {/* Left Text Column — staggered fade-in */}
             <div style={{
               flex: '1 1 100%',
               zIndex: 5,
-              color: '#1C231A',
               maxWidth: '800px',
               textAlign: 'left',
               display: 'flex',
               flexDirection: 'column',
-              gap: '1rem',
             }}>
               <div style={{
+                background: 'rgba(255, 255, 255, 0.95)',
+                border: '3px solid #5C3D24',
+                borderRadius: '24px',
+                padding: isMobile ? '1.5rem' : '2.5rem',
+                maxWidth: '600px',
+                width: '100%',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.12)',
                 display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                fontSize: '0.8rem',
-                letterSpacing: '0.3em',
-                textTransform: 'uppercase',
-                color: '#2C6B37',
-                fontWeight: 800,
+                flexDirection: 'column',
+                gap: '1.1rem',
+                alignItems: 'flex-start',
                 animation: activeSlide === 1 ? 'bounceIn 0.7s ease 0.2s both' : 'none',
               }}>
-                <Wheat size={16} /> Annual Rice Harvest 2026
-              </div>
-              
-              <h1 style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: 'clamp(2.5rem, 5vw, 4.4rem)',
-                fontWeight: 900,
-                lineHeight: 1.1,
-                color: '#1C231A',
-                margin: '0.5rem 0',
-                animation: activeSlide === 1 ? 'bounceIn 0.7s ease 0.4s both' : 'none',
-              }}>
-                Rooted.<br />
-                Reignited.<br />
-                Reimagined.
-              </h1>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  fontSize: '0.8rem',
+                  letterSpacing: '0.3em',
+                  textTransform: 'uppercase',
+                  color: '#2C6B37',
+                  fontWeight: 800,
+                }}>
+                  <Wheat size={16} /> Annual Rice Harvest 2026
+                </div>
 
-              <p style={{
-                fontSize: '1.05rem',
-                lineHeight: 1.7,
-                color: '#4B5548',
-                fontWeight: 500,
-                margin: '0.5rem 0 1.5rem 0',
-                maxWidth: '650px',
-                animation: activeSlide === 1 ? 'bounceIn 0.7s ease 0.6s both' : 'none',
-              }}>
-                Over three generations of agricultural heritage combined with state-of-the-art automation. Supplying pure, nutrient-rich South Indian Ponni and Sona Masuri grains daily.
-              </p>
+                <h1 style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: 'clamp(2rem, 4.5vw, 3.2rem)',
+                  fontWeight: 900,
+                  lineHeight: 1.15,
+                  color: '#1C231A',
+                  margin: 0,
+                }}>
+                  Rooted.<br />
+                  Reignited.<br />
+                  Reimagined.
+                </h1>
 
-              <div style={{ animation: activeSlide === 1 ? 'bounceIn 0.7s ease 0.8s both' : 'none' }}>
-                <button 
-                  onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="glow-pulse-btn"
-                  style={{
-                    background: 'linear-gradient(135deg, #2C6B37, #4B9B5E)',
-                    color: '#FFFFFF',
-                    padding: '0.8rem 2.2rem',
-                    borderRadius: '30px',
-                    border: 'none',
-                    fontFamily: "'Raleway', sans-serif",
-                    fontWeight: 800,
-                    fontSize: '0.9rem',
-                    cursor: 'pointer',
-                    letterSpacing: '0.05em',
-                    textTransform: 'uppercase',
-                    boxShadow: '0 4px 15px rgba(44, 107, 55, 0.25)',
-                    transition: 'all 0.3s ease',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                  }}
-                  onMouseEnter={e => { 
-                    e.currentTarget.style.transform = 'translateY(-2px)'; 
-                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(44, 107, 55, 0.35)'; 
-                  }}
-                  onMouseLeave={e => { 
-                    e.currentTarget.style.transform = 'translateY(0)'; 
-                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(44, 107, 55, 0.25)'; 
-                  }}
-                >
-                  Our Varieties <ArrowRight size={16} />
-                </button>
+                <p style={{
+                  fontSize: 'clamp(0.85rem, 1.8vw, 1.02rem)',
+                  lineHeight: 1.6,
+                  color: '#5C6757',
+                  fontWeight: 500,
+                  margin: 0,
+                }}>
+                  Over three generations of agricultural heritage combined with state-of-the-art automation. Supplying pure, nutrient-rich South Indian Ponni and Sona Masuri grains daily.
+                </p>
+
+                <div style={{ marginTop: '0.4rem' }}>
+                  <button
+                    onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="glow-pulse-btn"
+                    style={{
+                      background: 'linear-gradient(135deg, #2C6B37, #4B9B5E)',
+                      color: '#FFFFFF',
+                      padding: '0.8rem 1.8rem',
+                      borderRadius: '30px',
+                      border: 'none',
+                      fontFamily: "'Raleway', sans-serif",
+                      fontWeight: 800,
+                      fontSize: '0.8rem',
+                      cursor: 'pointer',
+                      letterSpacing: '0.05em',
+                      textTransform: 'uppercase',
+                      boxShadow: '0 4px 15px rgba(44, 107, 55, 0.25)',
+                      transition: 'all 0.3s ease',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                    }}
+                  >
+                    Our Varieties <ArrowRight size={14} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -583,7 +589,7 @@ export default function Hero() {
             width: '33.333%',
             height: '100%',
             position: 'relative',
-            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.7), rgba(254, 250, 242, 0.85)), url(${heritageBg})`,
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), url(${slide2Bg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             display: 'flex',
@@ -597,85 +603,89 @@ export default function Hero() {
 
             <div style={{
               maxWidth: '800px',
-              color: '#1C231A',
-              textAlign: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '1.25rem',
               position: 'relative',
               zIndex: 2,
             }}>
               <div style={{
-                display: 'inline-flex',
+                background: 'rgba(255, 255, 255, 0.95)',
+                border: '3px solid #5C3D24',
+                borderRadius: '24px',
+                padding: isMobile ? '1.5rem' : '2.5rem',
+                maxWidth: '650px',
+                width: '100%',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.12)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.1rem',
                 alignItems: 'center',
-                gap: '10px',
-                fontSize: '0.8rem',
-                letterSpacing: '0.3em',
-                textTransform: 'uppercase',
-                color: '#C99414',
-                fontWeight: 800,
+                textAlign: 'center',
                 animation: activeSlide === 2 ? 'bounceIn 0.7s ease 0.2s both' : 'none',
               }}>
-                <Wheat size={16} /> Sri Krishna Heritage
-              </div>
-              <h1 style={{
-                fontFamily: "'Cinzel', serif",
-                fontSize: 'clamp(2rem, 5vw, 3.8rem)',
-                fontWeight: 900,
-                lineHeight: 1.15,
-                color: '#1C231A',
-                margin: 0,
-                textShadow: '0 2px 8px rgba(255,255,255,0.5)',
-                animation: activeSlide === 2 ? 'bounceIn 0.7s ease 0.4s both' : 'none',
-              }}>
-                Purity & Integrity In Every Grain
-              </h1>
-              <p style={{
-                fontSize: '1.05rem',
-                lineHeight: 1.8,
-                color: '#4B5548',
-                fontWeight: 500,
-                maxWidth: '650px',
-                margin: '0 auto 1rem auto',
-                textShadow: '0 1px 2px rgba(255,255,255,0.5)',
-                animation: activeSlide === 2 ? 'bounceIn 0.7s ease 0.6s both' : 'none',
-              }}>
-                Processing 45 tonnes of premium Ponni and Sona Masuri rice daily in our state-of-the-art 8-acre facility. Serving leading domestic supermarkets and international export markets.
-              </p>
-              <div style={{ animation: activeSlide === 2 ? 'bounceIn 0.7s ease 0.8s both' : 'none' }}>
-                <button 
-                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="glow-pulse-btn"
-                  style={{
-                    background: 'linear-gradient(135deg, #2C6B37, #4B9B5E)',
-                    color: '#FFFFFF',
-                    padding: '0.9rem 2.5rem',
-                    borderRadius: '30px',
-                    border: 'none',
-                    fontFamily: "'Raleway', sans-serif",
-                    fontWeight: 800,
-                    fontSize: '0.95rem',
-                    cursor: 'pointer',
-                    letterSpacing: '0.05em',
-                    textTransform: 'uppercase',
-                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
-                    transition: 'all 0.3s ease',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                  }}
-                  onMouseEnter={e => { 
-                    e.currentTarget.style.transform = 'translateY(-2px)'; 
-                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(44, 107, 55, 0.5)'; 
-                  }}
-                  onMouseLeave={e => { 
-                    e.currentTarget.style.transform = 'translateY(0)'; 
-                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.3)'; 
-                  }}
-                >
-                  Connect With Us <ArrowRight size={16} />
-                </button>
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  fontSize: '0.8rem',
+                  letterSpacing: '0.3em',
+                  textTransform: 'uppercase',
+                  color: '#C99414',
+                  fontWeight: 800,
+                }}>
+                  <Wheat size={16} /> Sri Krishna Heritage
+                </div>
+                <h1 style={{
+                  fontFamily: "'Cinzel', serif",
+                  fontSize: 'clamp(2rem, 4.5vw, 3rem)',
+                  fontWeight: 900,
+                  lineHeight: 1.15,
+                  color: '#1C231A',
+                  margin: 0,
+                }}>
+                  Purity & Integrity In Every Grain
+                </h1>
+                <p style={{
+                  fontSize: 'clamp(0.85rem, 1.8vw, 1.02rem)',
+                  lineHeight: 1.6,
+                  color: '#5C6757',
+                  fontWeight: 500,
+                  margin: 0,
+                }}>
+                  Processing 45 tonnes of premium Ponni and Sona Masuri rice daily in our state-of-the-art 8-acre facility. Serving leading domestic supermarkets and international export markets.
+                </p>
+                <div style={{ marginTop: '0.4rem' }}>
+                  <button
+                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="glow-pulse-btn"
+                    style={{
+                      background: 'linear-gradient(135deg, #2C6B37, #4B9B5E)',
+                      color: '#FFFFFF',
+                      padding: '0.8rem 2rem',
+                      borderRadius: '30px',
+                      border: 'none',
+                      fontFamily: "'Raleway', sans-serif",
+                      fontWeight: 800,
+                      fontSize: '0.8rem',
+                      cursor: 'pointer',
+                      letterSpacing: '0.05em',
+                      textTransform: 'uppercase',
+                      boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+                      transition: 'all 0.3s ease',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 6px 20px rgba(44, 107, 55, 0.35)';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
+                    }}
+                  >
+                    Connect With Us <ArrowRight size={14} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -694,7 +704,7 @@ export default function Hero() {
         zIndex: 15,
       }}>
         {[0, 1, 2].map(i => (
-          <button 
+          <button
             key={i}
             onClick={() => setActiveSlide(i)}
             aria-label={`Slide ${i + 1}`}
@@ -702,7 +712,7 @@ export default function Hero() {
               width: activeSlide === i ? '24px' : '10px',
               height: '10px',
               borderRadius: '5px',
-              background: activeSlide === i ? '#2C6B37' : 'rgba(44, 107, 55, 0.3)',
+              background: activeSlide === i ? '#2C6B37' : 'rgba(44, 107, 55, 0.2)',
               border: 'none',
               cursor: 'pointer',
               transition: 'all 0.3s ease',

@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Wheat, Check } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import bg1 from '../assets/bg/bg1.png';
-import sowingImg from '../assets/collage/paddy_sowing.png';
-import transplantingImg from '../assets/collage/paddy_transplanting.png';
-import harvestingImg from '../assets/collage/paddy_harvesting.png';
+import rawPonniImg from '../assets/rice_product/raw_ponni.png';
+import steamPonniImg from '../assets/rice_product/steam_ponni.png';
+import jeeragaSambaImg from '../assets/rice_product/jeeraga_sambha.png';
+import deluxePonniImg from '../assets/rice_product/delux_ponni.png';
 import productImg from '../assets/product/Screenshot 2026-06-01 104018.png';
 import ThreeClouds from './ThreeClouds';
 
@@ -65,10 +66,10 @@ export default function Products() {
   ];
 
   const bestVarieties = [
-    { name: 'Raw Ponni', img: sowingImg, type: 'Traditional Raw', desc: 'Experience the pure, unadulterated essence of Ponni rice, aged to perfection for fluffy daily meals.' },
-    { name: 'Steam Ponni', img: transplantingImg, type: 'Aromatic Steam', desc: 'Globally preferred for its high recovery and non-sticky cooking, perfect for biryanis and hotel meals.' },
-    { name: 'Jeeraga Samba', img: harvestingImg, type: 'Festival Grade', desc: 'Tiny, highly aromatic grains with unmatched fragrance, perfect for South Indian signature Ghee rice.' },
-    { name: 'Deluxe Ponni', img: productImg, type: 'Ultra Premium Raw', desc: 'Meticulously processed and double-polished raw Ponni rice for elite taste and dining excellence.' },
+    { name: 'Raw Ponni', img: rawPonniImg, type: 'Traditional Raw', desc: 'Experience the pure, unadulterated essence of Ponni rice, aged to perfection for fluffy daily meals.' },
+    { name: 'Steam Ponni', img: steamPonniImg, type: 'Aromatic Steam', desc: 'Globally preferred for its high recovery and non-sticky cooking, perfect for biryanis and hotel meals.' },
+    { name: 'Jeeraga Samba', img: jeeragaSambaImg, type: 'Festival Grade', desc: 'Tiny, highly aromatic grains with unmatched fragrance, perfect for South Indian signature Ghee rice.' },
+    { name: 'Deluxe Ponni', img: deluxePonniImg, type: 'Ultra Premium Raw', desc: 'Meticulously processed and double-polished raw Ponni rice for elite taste and dining excellence.' },
   ];
 
   const displayedVarieties = showAll 
@@ -77,7 +78,7 @@ export default function Products() {
 
   return (
     <section id="products" ref={sectionRef} style={{
-      backgroundImage: `linear-gradient(rgba(253, 251, 247, 0.70), rgba(245, 238, 226, 0.70)), url(${bg1})`,
+      backgroundImage: `linear-gradient(rgba(250, 246, 240, 0), rgba(250, 246, 240, 0)), url(${bg1})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       padding: '8rem 3rem', minHeight: 'auto',
@@ -90,7 +91,16 @@ export default function Products() {
             Our Best Varieties (Competitor Style Grid)
             ========================================== */}
         <ScrollReveal direction="up">
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <div style={{
+            background: '#FFFFFF',
+            border: '3px solid #5C3D24',
+            borderRadius: '24px',
+            padding: '2rem 2.5rem',
+            maxWidth: '750px',
+            margin: '0 auto 4rem auto',
+            boxShadow: '0 8px 30px rgba(44, 107, 55, 0.05)',
+            textAlign: 'center',
+          }}>
             <div style={{ fontSize: '0.85rem', letterSpacing: '0.4em', color: '#2C6B37', textTransform: 'uppercase', marginBottom: 12, fontWeight: 800 }}>
               ALL SEEDS VARIETIES AVAILABLE
             </div>
@@ -184,7 +194,16 @@ export default function Products() {
             Collapsible Full Grid List
             ========================================== */}
         <ScrollReveal direction="up">
-          <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+          <div style={{
+            background: '#FFFFFF',
+            border: '3px solid #5C3D24',
+            borderRadius: '24px',
+            padding: '1.8rem 2.5rem',
+            maxWidth: '750px',
+            margin: '0 auto 3.5rem auto',
+            boxShadow: '0 8px 30px rgba(44, 107, 55, 0.05)',
+            textAlign: 'center',
+          }}>
             <div style={{ fontSize: '0.8rem', letterSpacing: '0.3em', color: '#2C6B37', textTransform: 'uppercase', marginBottom: 6, fontWeight: 800 }}>
               Premium Selection
             </div>

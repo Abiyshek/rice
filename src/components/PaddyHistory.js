@@ -134,7 +134,7 @@ export default function PaddyHistory() {
         position: 'sticky', top: 0, height: '100vh',
         display: 'flex', flexDirection: 'column',
         justifyContent: 'space-evenly', alignItems: 'center',
-        background: 'linear-gradient(180deg, #FAF8F5 0%, #F4ECE0 100%)',
+        background: 'linear-gradient(180deg, #FAF6F0 0%, #F3ECE0 100%)',
         overflow: 'hidden',
         padding: '1rem 0',
       }}>
