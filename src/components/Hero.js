@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Wheat, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import logoImg from '../assets/logo/SKRM_logo.png';
-import heritageBg from '../assets/bg/Gemini_Generated_Image_vldgx7vldgx7vldg.png';
+import heritageBg from '../assets/bg/paddy_lifecycle_bg.png';
 import slide1Bg from '../assets/bg/hero_slide1_bg.png';
 import slide2Bg from '../assets/bg/hero_slide2_bg.png';
 
